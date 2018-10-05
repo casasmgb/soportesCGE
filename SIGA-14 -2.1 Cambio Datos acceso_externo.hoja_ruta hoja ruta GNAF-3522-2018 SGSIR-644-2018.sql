@@ -66,7 +66,7 @@ begin
 	-- si no es lo esperado , hacer un rollback
 	IF my_var_pass != 1	THEN   
 		RAISE EXCEPTION transaction_rollback;
-	END IF ; 
+	END IF;
 	
 	SELECT procur_codigo into _procur_codigo FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc WHERE pcc.procurcod_sigla=_procurcod_sigla;
    
@@ -77,7 +77,7 @@ begin
        	AND pp.perpre_numero_docidentidad=_docidentidad_old;
         
         --obteniendo cuantas filas fueron afectadas
-	GET DIAGNOSTICS my_var := ROW_COUNT;	
+	GET DIAGNOSTICS my_var := ROW_COUNT;
 	-- si no es lo esperado , hacer un rollback
 	IF my_var != _nro_registros_a_afectar	THEN   
 		RAISE EXCEPTION transaction_rollback;
@@ -353,15 +353,19 @@ BEGIN
 		--  4788329
 		
 	    _res := acceso_externo.changeCI('CE/LP-A45-624/2018','4788239', '4788329', 1);	
-		raise notice 'res: %',36;		
+		raise notice 'res: %',36;	
+----.- 	CE/LP-A45-624/2018
+		--  581241
+		
+	    _res := acceso_externo.changeCI('CE/LP-A45-624/2018','581241', '5801241', 1);	
+		raise notice 'res: %',36;	
 	
 	/*
          SELECT p.*
          FROM acceso_externo.persona_preinscripcion p 
 		 INNER JOIN seguimiento_capacitacion.programacion_curso_codificacion AS pcc
 		 ON p.procur_codigo = pcc.procur_codigo
-		 where pcc.procurcod_sigla='MU/TR-T11-063/2018' and p.perpre_numero_docidentidad = '581241'
-
+		 where pcc.procurcod_sigla='CE/LP-T82-214/2018' and p.perpre_numero_docidentidad = '4823439'
 	*/	
 	
 	raise notice 'actualizados';

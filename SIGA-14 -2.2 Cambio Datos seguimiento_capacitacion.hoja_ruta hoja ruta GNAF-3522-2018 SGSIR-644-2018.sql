@@ -210,8 +210,13 @@ BEGIN
 		raise notice 'res: %',36;		
 	/*     
 	 	SELECT * FROM seguimiento_capacitacion.personas p
-	 	WHERE p.per_docidentidad LIKE '%6531386%'
-	*/	  
+	 	WHERE p.per_docidentidad LIKE '%4412354%'
+	*/	
+----.- 	CE/LP-A45-624/2018
+		--  581241
+		_res = seguimiento_capacitacion.changeCI('581241', '5801241', 1);	
+		raise notice 'res: %',36;	
+	
        	raise notice 'actualizados';
 		return 'registros actualizados';
 end;
@@ -219,3 +224,4 @@ $function$
 
 
   -- select * from seguimiento_capacitacion.hoja_ruta3522();
+
