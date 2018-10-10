@@ -15,6 +15,7 @@
  * select acceso_externo.spr_desvincular_cuenta_participante('CE/CB-CS04-689/2018')
  *******************************************/
 
+
 CREATE OR REPLACE FUNCTION acceso_externo.spr_desvincular_cuenta_participante(i_perpre_codigo character varying)
  RETURNS boolean
  LANGUAGE plpgsql
