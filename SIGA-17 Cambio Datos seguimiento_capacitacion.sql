@@ -63,18 +63,7 @@ BEGIN
 		RETURN NEXT _obj_informacion_afectada;
 	END IF;
 	
-	SELECT per_codigopersona into _per_codigopersona FROM seguimiento_capacitacion.personas p
- 	WHERE p.per_docidentidad LIKE _docidentidad_old  AND per_appaterno = i_per_appaterno AND per_apmaterno = i_per_apmaterno;
- 	IF NOT FOUND THEN
-    	_obj_informacion_afectada.inf_codigo		:= 'NO SE ENCONTRO EL DOCUMENTO DE IDENTIDAD';
-		_obj_informacion_afectada.inf_complemento	:= _docidentidad_old;
-		_obj_informacion_afectada.err_Existente		:= 1;
-		_obj_informacion_afectada.err_Mensaje		:= '';
-		_obj_informacion_afectada.err_codigo		:= 0;
-		RETURN NEXT _obj_informacion_afectada;
-	END IF;
- 	
-	-- LLAMAR A ACCESO EXTERNO
+		-- LLAMAR A ACCESO EXTERNO
 	select acceso_externo.changeCI(_procur_codigo, _docidentidad_old, i_per_appaterno, i_per_apmaterno, _docidentidad_new, _nro_registros_a_afectar) INTO _obj_informacion_afectada_externo;
 	if _obj_informacion_afectada_externo.err_Existente != 0 then
 		RAISE EXCEPTION transaction_rollback;
@@ -86,23 +75,34 @@ BEGIN
 		RETURN NEXT _obj_informacion_afectada;
 	end if;
 	
-	-- REEMPLAZAR CI Y CODIGOPERSONA
- 	select REPLACE (_per_codigopersona, _docidentidad_old, _docidentidad_new) into _new_per_codigopersona;
- 
- 	UPDATE seguimiento_capacitacion.personas p
-	SET
-		per_docidentidad = _docidentidad_new,
-		per_codigopersona=_new_per_codigopersona
-        WHERE p.per_codigo = (SELECT per_codigo FROM seguimiento_capacitacion.personas p
- 	WHERE p.per_docidentidad LIKE _docidentidad_old) AND p.per_docidentidad=_docidentidad_old;
-		
- --obteniendo cuantas filas fueron afectadas
-	GET DIAGNOSTICS my_var = ROW_COUNT;	
-			
-	-- si no es lo esperado , hacer un rollback
-	IF my_var != _nro_registros_a_afectar 	THEN  
-		RAISE EXCEPTION transaction_rollback;
-	END IF ; 
+	IF EXISTS (SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad = _docidentidad_old) THEN
+		SELECT per_codigopersona into _per_codigopersona FROM seguimiento_capacitacion.personas p
+ 		WHERE p.per_docidentidad LIKE _docidentidad_old  AND per_appaterno = i_per_appaterno AND per_apmaterno = i_per_apmaterno;
+ 		-- REEMPLAZAR CI Y CODIGOPERSONA
+	 	select REPLACE (_per_codigopersona, _docidentidad_old, _docidentidad_new) into _new_per_codigopersona;
+	 
+	 	UPDATE seguimiento_capacitacion.personas p
+		SET
+			per_docidentidad = _docidentidad_new,
+			per_codigopersona=_new_per_codigopersona
+	        WHERE p.per_docidentidad=_docidentidad_old AND per_appaterno = i_per_appaterno AND per_apmaterno = i_per_apmaterno;
+		/*--obteniendo cuantas filas fueron afectadas
+		GET DIAGNOSTICS my_var = ROW_COUNT;	
+				
+		-- si no es lo esperado , hacer un rollback
+		IF my_var != _nro_registros_a_afectar 	THEN  
+			RAISE EXCEPTION transaction_rollback;
+		END IF ;
+		*/ 
+	ELSE
+		RAISE NOTICE '======>CI NO SE ENCONTRO'; 
+		_obj_informacion_afectada.inf_codigo		:= _docidentidad_old;
+		_obj_informacion_afectada.inf_complemento	:= 'NO SE ENCONTRO EL DOCUMENTO DE IDENTIDAD-EXTERNO';
+		_obj_informacion_afectada.err_Existente		:= 1;
+		_obj_informacion_afectada.err_Mensaje		:= '';
+		_obj_informacion_afectada.err_codigo		:= 0;
+		RETURN NEXT _obj_informacion_afectada;
+	END	IF; 
  	
     -- Retornamos los valores 
 	_obj_informacion_afectada.inf_codigo		:= _new_per_codigopersona;

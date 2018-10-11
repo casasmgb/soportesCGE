@@ -17,7 +17,7 @@
 -- buscamos el procur_codigo con procurcod_sigla
 SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc WHERE pcc.procurcod_sigla='CE/LP-T328-621/2018'
 -- verificamos que no este desconsolidado
-select * from seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi WHERE edpi.asidoc_codigo = 2 AND edpi.procur_codigo = 1330;
+select * from seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi WHERE edpi.asidoc_codigo = 1 AND edpi.procur_codigo = 1330;
 
 -- desconsolidar curso con procur_codigo
 UPDATE seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
