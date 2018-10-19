@@ -18,7 +18,7 @@ BEGIN
 	DECLARE @nombreTabla NVARCHAR(200)
 	DECLARE @sqlQuery NVARCHAR(8000)
 	DECLARE @sqlVerify NVARCHAR(100)
-	
+	 
 	SET @nombreTabla = @nombre
 	SET @sqlVerify = 'SELECT * FROM ' + @nombreTabla
 	SET sqlQuery = 'SELECT	per.per_Item, 
