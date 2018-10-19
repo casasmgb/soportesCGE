@@ -27,7 +27,7 @@ CREATE PROCEDURE [dbo].[spr_creat_personal_backup_SSCRRHH]
 AS
 BEGIN
 	DECLARE @nombreNuevaTablaPersonal NVARCHAR(50)
-	SET @nombreNuevaTablaPersonal = 'personal_2018_respaldo_octubre'
+	SET @nombreNuevaTablaPersonal = 'PERSONAL_2018_191018'
 
 	SELECT	per.per_Item, 
 			per.per_Tarjeta, 
