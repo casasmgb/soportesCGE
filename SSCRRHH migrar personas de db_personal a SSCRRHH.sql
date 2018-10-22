@@ -7,27 +7,30 @@ GO
 
 /*******************************************
  * Autor: Lic. Gabriel Casas Mamani
- * Fecha: 18/10/2018
- * Script para crear una tabla con informacion
- * para la tabla personal de la base de datos SSCRRHH
- * BASE DE DATOS: BD_PERSONAL
+ * Fecha: 15/10/2018
+ * Script para migrar datos para la tabla personal 
+ * de la base de datos SSCRRHH
+ *
+ * BASE DE DATOS:	SSCRRHH
+					BD_PERSONAL
  * Cambiar el nombre se la tabla "personal_2018_octubre"  donde se recuperaran los datos  
  * 
- * El script creara la tabla "personal_2018_octubre" en la base de datos SSCRRHH 
- * con informacion del personal regisrado en la base BD_PERSONAL
- *  
+ * El script:
+ * creara la tabla "personal_2018_octubre" en la base de datos SSCRRHH 
+ * - con informacion del personal regisrado en la base BD_PERSONAL
+ * - en SSCRRHH renombrara DBO.PERSONAL por PERSONAL_2018_221018 (cambiar en cada ejecución)
+ * - restaurara la tabla DBO.PERSONAL con lo datos de  DBO.personal_2018_octubre
+ *
  * Ejecutar con:
  * EXEC [dbo].[spr_creat_personal_backup_SSCRRHH]
  * 
- * Realizar en SSCRRHH:
- * restaurar "DBO.PERSONAL" con los datos de la tabla "personal_2018_octubre"
  *******************************************/
 
 CREATE PROCEDURE [dbo].[spr_creat_personal_backup_SSCRRHH]
 AS
 BEGIN
 	DECLARE @nombreNuevaTablaPersonal NVARCHAR(50)
-	SET @nombreNuevaTablaPersonal = 'PERSONAL_2018_191018'
+	SET @nombreNuevaTablaPersonal = 'PERSONAL_2018_221018'
 
 	SELECT	per.per_Item, 
 			per.per_Tarjeta, 
@@ -106,4 +109,5 @@ BEGIN
 	END	
 END 
 
-SELECT * FROM PERSONAL
+-- SELECT * FROM PERSONAL
+-- SELECT * FROM PERSONAL_2018_221018
