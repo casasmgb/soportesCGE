@@ -53,7 +53,7 @@ BEGIN
 	RAISE NOTICE 'perpre_codigo: % ', _perpre_codigo;
 	
 	_new_pass := (select public.fn_encriptar_cadena(_docidentidad_new));
-	RAISE NOTICE 'cambiando contraseña por: % ', _new_pass;
+	RAISE NOTICE 'cambiando contraseï¿½a por: % ', _new_pass;
 	
 	UPDATE acceso_externo.cuenta_persona_inscripcion
 	SET cueperins_contrasenia = _new_pass

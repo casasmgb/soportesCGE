@@ -11,6 +11,8 @@
 	MOTOR BASE DE DATOS: POSTGRES
 	FECHA EJECUCION: 11/10/2018
 	POR: LIC. GABRIEL CASAS MAMANI.
+	EJECUTAR:
+	SELECT seguimiento_capacitacion.correcionDatos()  
 	*/
 --====================================================================================
 /*
@@ -22,11 +24,13 @@ select	pcc.procurcod_sigla,
 FROM acceso_externo.persona_preinscripcion p
 INNER JOIN seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
 ON p.procur_codigo = pcc.procur_codigo 
-WHERE pcc.procurcod_sigla = 'CE/LP-T369-804/2018' 
-AND p.perpre_numero_docidentidad = '4251834-LP'
+WHERE pcc.procurcod_sigla = 'CE/CB-T33-777/2018' 
+AND p.perpre_numero_docidentidad = '7973948'
 */
 
-CREATE OR REPLACE FUNCTION seguimiento_capacitacion.correcionDatos()  
+-- drop function seguimiento_capacitacion.correccionDatos()  
+
+CREATE OR REPLACE FUNCTION seguimiento_capacitacion.correccionDatos()  
 RETURNS SETOF objinformacion_afectada
  LANGUAGE plpgsql
  SECURITY DEFINER
@@ -48,7 +52,7 @@ BEGIN
 	
 	--1.-	CE/LP-T352-746/2018
 	--		6876157
-	select seguimiento_capacitacion.changeCI('CE/LP-T352-746/2018', '6876157-LP','ALANOCA','MARIÃ‘O', '6876157', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-T352-746/2018', '6876157-LP','ALANOCA','MARIÑO', '6876157', 1) into _obj_informacion_afectada;
 	--2.-	CE/LP-T348-742/2018
 	--		3432081
 	select seguimiento_capacitacion.changeCI('CE/LP-T348-742/2018', '3432081-LP','ALIAGA','HUARACHI', '3432081', 1) into _obj_informacion_afectada;
@@ -60,7 +64,7 @@ BEGIN
 	select seguimiento_capacitacion.changeCI('CE/CB-T33-777/2018', '7973948','ARCIENEGA','PAZ', '7973949', 1) into _obj_informacion_afectada;
 	--5.-	CE/LP-A03-205/2017
 	--		6827356
-	select seguimiento_capacitacion.changeCI('CE/LP-A03-205/2017', '6827356-LP','AZEÃ‘AS','DEL CARPIO', '6827356', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-A03-205/2017', '6827356-LP','AZEÑAS','DEL CARPIO', '6827356', 1) into _obj_informacion_afectada;
 	--6.-	CE/CH-T09-661/2018
 	--		3646089
 	select seguimiento_capacitacion.changeCI('CE/CH-T09-661/2018', '3646189','BARRIOS','MEDRANO', '3646089', 1) into _obj_informacion_afectada;
@@ -176,7 +180,7 @@ BEGIN
 	UPDATE seguimiento_capacitacion.personas p
 	set
 		per_apmaterno='OROZCO',-- VELASQUEZ
-		per_apmaterno='VELASQUEZ'--OROZCO
+		per_appaterno='VELASQUEZ'--OROZCO
         WHERE p.per_codigo = 28660 AND p.per_docidentidad='8075357';
    	GET DIAGNOSTICS my_var = ROW_COUNT;	
 	IF my_var != 1 	THEN  
@@ -348,7 +352,6 @@ EXCEPTION
         _obj_informacion_afectada.inf_codigo		:= -1;
         _obj_informacion_afectada.inf_complemento	:= 'otro error';                
 		RETURN NEXT _obj_informacion_afectada;
-	
 END;
 $function$
 
