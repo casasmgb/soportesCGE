@@ -82,7 +82,8 @@ BEGIN
 	--		10703395
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
-		perpre_apellido_paterno = 'HUAYLLANI' -- HUYLLANI
+		perpre_apellido_paterno = 'HUAYLLANI', -- HUYLLANI
+		perpre_numero_docidentidad = 6
 	WHERE perpre_numero_docidentidad = '10703395';
 	GET DIAGNOSTICS my_var = ROW_COUNT;	
 	RAISE NOTICE '27: % ', my_var;

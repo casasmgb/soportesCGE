@@ -55,6 +55,7 @@ BEGIN
 	SELECT pcc.procur_codigo INTO _procur_codigo FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc
 	WHERE pcc.procurcod_sigla=_procurcod_sigla;
 	IF NOT FOUND THEN
+		_err_Mensaje := 'NO SE ENCONTRO EL CURSO';
     	_obj_informacion_afectada.inf_codigo		:= 'NO SE ENCONTRO EL CURSO';
 		_obj_informacion_afectada.inf_complemento	:= _procurcod_sigla;
 		_obj_informacion_afectada.err_Existente		:= 1;
@@ -66,13 +67,8 @@ BEGIN
 		-- LLAMAR A ACCESO EXTERNO
 	select acceso_externo.changeCI(_procur_codigo, _docidentidad_old, i_per_appaterno, i_per_apmaterno, _docidentidad_new, _nro_registros_a_afectar) INTO _obj_informacion_afectada_externo;
 	if _obj_informacion_afectada_externo.err_Existente != 0 then
+		_err_Mensaje := 'Roll back llamada a acceso_externo.spr_desvincular_cuenta_participante';
 		RAISE EXCEPTION transaction_rollback;
-		_obj_informacion_afectada.inf_codigo		:= 'Roll back llamada a acceso_externo.spr_desvincular_cuenta_participante';
-		_obj_informacion_afectada.inf_complemento	:= _docidentidad_old;
-		_obj_informacion_afectada.err_Existente		:= 1;
-		_obj_informacion_afectada.err_Mensaje		:= '';
-		_obj_informacion_afectada.err_codigo		:= 0;
-		RETURN NEXT _obj_informacion_afectada;
 	end if;
 	
 	IF EXISTS (SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad = _docidentidad_old) THEN
