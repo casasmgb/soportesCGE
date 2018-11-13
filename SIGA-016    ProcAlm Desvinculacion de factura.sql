@@ -171,13 +171,8 @@ $function$
 /*
  * Ejecutar el script para quitar la asociacion de las facturas siguientes:
  * 
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '5979606');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '6124511');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '6144116');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '6144294');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '7000277');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '2643816-1U');
-select seguimiento_capacitacion.spr_desvincular_factura('MU/LP-A06-722/2018', '4776362');
+select seguimiento_capacitacion.spr_desvincular_factura('CE/LP-E10-828/2018', '3613470');
+select seguimiento_capacitacion.spr_desvincular_factura('CE/LP-E10-828/2018', '4795261');
 
 -- para verificar:
 
