@@ -46,21 +46,21 @@ begin
 	select count(*) into _nro_registros_actualizar from seguimiento_capacitacion.programacion_curso_codificacion AS pcc
 					inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
 					on pcc.procur_codigo = edpi.procur_codigo
-					where pcc.procurcod_sigla=_procur_sigla and edpi.asidoc_codigo = 1 and edpi.evadocperins_estado = 2;
+					where pcc.procurcod_sigla=_procur_sigla and edpi.asidoc_codigo in (1,2) and edpi.evadocperins_estado = 2;
 					
 					
 	
 	if not exists (select * from seguimiento_capacitacion.programacion_curso_codificacion AS pcc
 					inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
 					on pcc.procur_codigo = edpi.procur_codigo
-					where pcc.procurcod_sigla=_procur_sigla and edpi.asidoc_codigo = 1 and edpi.evadocperins_estado = 2) then
+					where pcc.procurcod_sigla=_procur_sigla and edpi.asidoc_codigo in (1,2) and edpi.evadocperins_estado = 2) then
 					_err_Mensaje := 'NO SE PUEDE DESCONSOLIDAR';
 					return _err_Mensaje;	
 	else 
 		UPDATE seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
 		SET
 		evadocperins_estado = 1 --2
-		WHERE edpi.asidoc_codigo = 1 and edpi.evadocperins_estado = 2 AND edpi.procur_codigo = _procur_codigo;
+		WHERE edpi.asidoc_codigo  in (1,2) and edpi.evadocperins_estado = 2 AND edpi.procur_codigo = _procur_codigo;
 		GET DIAGNOSTICS _actualizados = ROW_COUNT;	
 		-- si no es lo esperado , hacer un rollback
 		IF _actualizados != _nro_registros_actualizar	THEN   
@@ -78,5 +78,4 @@ begin
 END;
 $function$
 
--- select seguimiento_capacitacion.spr_upd_desconsolidar_evaluacion_evento('CE/OR-CS03-873/2018')
 			
