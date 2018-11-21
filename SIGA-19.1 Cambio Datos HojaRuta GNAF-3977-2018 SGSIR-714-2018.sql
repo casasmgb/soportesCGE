@@ -52,7 +52,7 @@ BEGIN
 	
 	--1.-	CE/LP-T352-746/2018
 	--		6876157
-	select seguimiento_capacitacion.changeCI('CE/LP-T352-746/2018', '6876157-LP','ALANOCA','MARIÑO', '6876157', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-T352-746/2018', '6876157-LP','ALANOCA','MARIï¿½O', '6876157', 1) into _obj_informacion_afectada;
 	--2.-	CE/LP-T348-742/2018
 	--		3432081
 	select seguimiento_capacitacion.changeCI('CE/LP-T348-742/2018', '3432081-LP','ALIAGA','HUARACHI', '3432081', 1) into _obj_informacion_afectada;
@@ -64,7 +64,7 @@ BEGIN
 	select seguimiento_capacitacion.changeCI('CE/CB-T33-777/2018', '7973949','ARCIENEGA','PAZ', '7973949', 1) into _obj_informacion_afectada;
 	--5.-	CE/LP-A03-205/2017
 	--		6827356
-	select seguimiento_capacitacion.changeCI('CE/LP-A03-205/2017', '6827356-LP','AZEÑAS','DEL CARPIO', '6827356', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-A03-205/2017', '6827356-LP','AZEï¿½AS','DEL CARPIO', '6827356', 1) into _obj_informacion_afectada;
 	--6.-	CE/CH-T09-661/2018
 	--		3646089
 	select seguimiento_capacitacion.changeCI('CE/CH-T09-661/2018', '3646189','BARRIOS','MEDRANO', '3646089', 1) into _obj_informacion_afectada;
@@ -188,16 +188,16 @@ BEGIN
 	END IF ;
 	--33.-	CE/LP-A58-738/2018
 	--		8278248
-	select seguimiento_capacitacion.changeCI('CE/LP-A58-738/2018', '8278248-LP','PEÑA','VISCAFE', '8278248', 2) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-A58-738/2018', '8278248-LP','PEï¿½A','VISCAFE', '8278248', 2) into _obj_informacion_afectada;
 	--34.-	MU/CH-T04-649/2018
 	--		7481233
-	select seguimiento_capacitacion.changeCI('MU/CH-T04-649/2018', '4781233','PEÑARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('MU/CH-T04-649/2018', '4781233','PEï¿½ARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
 	--35.-	MU/CH-T05-650/2018
 	--		7481233
-	select seguimiento_capacitacion.changeCI('MU/CH-T05-650/2018', '7481233','PEÑARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('MU/CH-T05-650/2018', '7481233','PEï¿½ARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
 	--36.-	MU/CH-T06-651/2018
 	--		7481233
-	select seguimiento_capacitacion.changeCI('MU/CH-T06-651/2018', '7481233','PEÑARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('MU/CH-T06-651/2018', '7481233','PEï¿½ARANDA','CHAVARRIA', '7481233', 1) into _obj_informacion_afectada;
 	--37.-	CE/LP-T10-618/2017
 	--		2309505
 	select seguimiento_capacitacion.changeCI('CE/LP-T10-618/2017', '2309505-LP','QUINT','VARGAS', '2309505', 1) into _obj_informacion_afectada;

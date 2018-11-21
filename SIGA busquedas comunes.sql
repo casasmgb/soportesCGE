@@ -1,9 +1,9 @@
 --conocer la directriz de un curso
-select d.* from seguimiento_capacitacion.programacion_curso pc
+select d.*, pc.* from seguimiento_capacitacion.programacion_curso pc
 inner join seguimiento_capacitacion.programacion_curso_codificacion pcc on pc.procur_codigo = pcc.procur_codigo
 inner join seguimiento_capacitacion.curso c on c.cur_codigo = pc.cur_codigo
 inner join seguimiento_capacitacion.directrices d on d.dir_codigo = c.dir_codigo
-where pcc.procurcod_sigla = 'UN/LP-T18-561/2017'
+where pcc.procurcod_sigla = 'CE/SC-T13-787/2018'
 
 --conocer usuario de participantes inscritos en un curso
 select cueperins_cuenta, per.per_docidentidad, per.per_appaterno, per.per_apmaterno 

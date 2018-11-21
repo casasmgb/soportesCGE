@@ -7,11 +7,11 @@
 	FECHA CREACION: 30/10/2018
 	POR: LIC. GABRIEL CASAS MAMANI.
 	EJECUCION:
-	SELECT seguimiento_capacitacion.quitar_codigo_curso('CE/LP-T403-882/2018')  
+	SELECT seguimiento_capacitacion.tmp_mantenimiento_quitar_codigo_curso('CE/LP-T403-882/2018')  
 	*/
 --====================================================================================
 
-CREATE OR REPLACE FUNCTION seguimiento_capacitacion.quitar_codigo_curso(procurcod_sigla character varying)  
+CREATE OR REPLACE FUNCTION seguimiento_capacitacion.tmp_mantenimiento_quitar_codigo_curso(procurcod_sigla character varying)  
 RETURNS SETOF objinformacion_afectada
  LANGUAGE plpgsql
  SECURITY DEFINER
@@ -21,6 +21,7 @@ DECLARE
 	_procur_codigo INTEGER;
 	_procurcod_sigla CHARACTER VARYING(30);
 	
+	_rows_afected INTEGER;
 	_err_Mensaje CHARACTER VARYING(1000);
 	_obj_informacion_afectada public.objinformacion_afectada%rowtype;
 BEGIN
@@ -66,19 +67,22 @@ BEGIN
 		_obj_informacion_afectada.err_codigo		:= 0;
 		RETURN NEXT _obj_informacion_afectada;
 	end if;
+	 -- insert historico
+	insert into seguimiento_capacitacion.historico_acuerdo_interinstitucional 
+	select *, now(), 'Gabriel Casas M'
+	from seguimiento_capacitacion.acuerdo_interinstitucional 
+	where procur_codigo = _procur_codigo;
 	
 	delete from seguimiento_capacitacion.acuerdo_interinstitucional
 	where procur_codigo = _procur_codigo;
-	
-	/*
-	GET DIAGNOSTICS my_var := ROW_COUNT;
+	GET DIAGNOSTICS _rows_afected := ROW_COUNT;
 	-- si no es lo esperado , hacer un rollback
-	IF my_var != 1 THEN
-		_err_Mensaje := '#ERROR NO SE ESPERABA LA CANTIDAD DE REGISTROS EN CODIGOS PARA ESTE CURSO';
+	IF _rows_afected != 1	THEN   
+		_err_Mensaje := '#ERROR AL MOMENTO DE BORRAR.';
 		RAISE EXCEPTION transaction_rollback;
-	END IF;
-	*/ 
-	    -- Retornamos los valores 
+	END IF; 
+	
+	-- Retornamos los valores 
 	_obj_informacion_afectada.inf_codigo		:= 1;
 	_obj_informacion_afectada.inf_complemento	:= _procurcod_sigla;
 	_obj_informacion_afectada.err_Existente		:= 0;

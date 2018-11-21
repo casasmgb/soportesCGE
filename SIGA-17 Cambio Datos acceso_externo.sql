@@ -26,6 +26,7 @@ DECLARE
 	_docidentidad_old CHARACTER VARYING(30);
 	_docidentidad_new CHARACTER VARYING(30);
 	_nro_registros_a_afectar INTEGER;
+	_data_historico JSON;
 	_obj_informacion_afectada public.objinformacion_afectada%rowtype;
 BEGIN
 	-- Tipo de dato de retorno
@@ -40,6 +41,7 @@ BEGIN
 	_docidentidad_new := docidentidad_new;
 	_nro_registros_a_afectar := nro_registros;
 	_procur_codigo:=procur_codigo;
+	
 	-- perpre_codigo del participante que esta inscrito
 
 		SELECT p.perpre_codigo INTO _perpre_codigo
@@ -49,12 +51,22 @@ BEGIN
 		AND p.perpre_apellido_paterno = i_per_appaterno
 		AND p.perpre_apellido_materno = i_per_apmaterno
 		AND p.procur_codigo = _procur_codigo;
-
+		
 	RAISE NOTICE 'perpre_codigo: % ', _perpre_codigo;
 	
 	_new_pass := (select public.fn_encriptar_cadena(_docidentidad_new));
-	RAISE NOTICE 'cambiando contraseï¿½a por: % ', _new_pass;
+	RAISE NOTICE 'cambiando contraseña por: % ', _new_pass;
 	
+	-- traza 
+	SELECT row_to_json (row1) INTO _data_historico
+	FROM (
+	    SELECT * FROM acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo = _perpre_codigo
+	) row1;
+	
+	INSERT INTO acceso_externo.historico_datos_primarios
+	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio contraseña');
+	 
 	UPDATE acceso_externo.cuenta_persona_inscripcion
 	SET cueperins_contrasenia = _new_pass
  	WHERE perpre_codigo = _perpre_codigo;
@@ -63,12 +75,26 @@ BEGIN
         RAISE EXCEPTION transaction_rollback; 
 	END IF; 
  
+	-- traza 
+	SELECT row_to_json (row1) INTO _data_historico
+	FROM (
+	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.procur_codigo=_procur_codigo 
+       	AND pp.perpre_numero_docidentidad=_docidentidad_old AND pp.perpre_apellido_paterno = i_per_appaterno
+		AND pp.perpre_apellido_materno = i_per_apmaterno
+		AND pp.perpre_codigo = _perpre_codigo
+	) row1;
+	
+	INSERT INTO acceso_externo.historico_datos_primarios
+	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	
 	UPDATE acceso_externo.persona_preinscripcion pp
 	SET 
 		perpre_numero_docidentidad=_docidentidad_new	                                      			
         WHERE pp.procur_codigo=_procur_codigo 
        	AND pp.perpre_numero_docidentidad=_docidentidad_old AND pp.perpre_apellido_paterno = i_per_appaterno
-		AND pp.perpre_apellido_materno = i_per_apmaterno;
+		AND pp.perpre_apellido_materno = i_per_apmaterno
+		AND pp.perpre_codigo = _perpre_codigo;
         
         --obteniendo cuantas filas fueron afectadas
 	GET DIAGNOSTICS my_var := ROW_COUNT;

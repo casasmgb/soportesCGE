@@ -24,6 +24,7 @@ DECLARE
 	_new_per_codigopersona VARCHAR(30);
 	_procur_codigo INTEGER;
 	_procurcod_sigla CHARACTER VARYING(30);
+	_data_historico JSON;
 	
 	_err_Mensaje CHARACTER VARYING(1000);
 	_mensaje CHARACTER VARYING(1000);
@@ -51,7 +52,8 @@ BEGIN
 	_docidentidad_new := docidentidad_new;
 	_nro_registros_a_afectar := nro_registros;
 	_procurcod_sigla := procurcod_sigla;
- 	
+ 	_nro_registros_a_afectar := nro_registros;
+ 
 	SELECT pcc.procur_codigo INTO _procur_codigo FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc
 	WHERE pcc.procurcod_sigla=_procurcod_sigla;
 	IF NOT FOUND THEN
@@ -73,27 +75,38 @@ BEGIN
 	
 	IF EXISTS (SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad = _docidentidad_old) THEN
 		SELECT per_codigopersona into _per_codigopersona FROM seguimiento_capacitacion.personas p
- 		WHERE p.per_docidentidad LIKE _docidentidad_old  AND per_appaterno = i_per_appaterno AND per_apmaterno = i_per_apmaterno;
+ 		WHERE p.per_docidentidad LIKE _docidentidad_old  AND p.per_appaterno = i_per_appaterno AND p.per_apmaterno = i_per_apmaterno;
  		-- REEMPLAZAR CI Y CODIGOPERSONA
 	 	select REPLACE (_per_codigopersona, _docidentidad_old, _docidentidad_new) into _new_per_codigopersona;
 	 
+	 	-- traza 
+		SELECT row_to_json (row1) INTO _data_historico
+		FROM (
+		    SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad=_docidentidad_old AND p.per_appaterno = i_per_appaterno AND p.per_apmaterno = i_per_apmaterno
+		) row1;
+	
+	 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
+	 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	 	
 	 	UPDATE seguimiento_capacitacion.personas p
 		SET
 			per_docidentidad = _docidentidad_new,
 			per_codigopersona=_new_per_codigopersona
-	        WHERE p.per_docidentidad=_docidentidad_old AND per_appaterno = i_per_appaterno AND per_apmaterno = i_per_apmaterno;
-		/*--obteniendo cuantas filas fueron afectadas
+	        WHERE p.per_docidentidad=_docidentidad_old AND p.per_appaterno = i_per_appaterno AND p.per_apmaterno = i_per_apmaterno;
+		--obteniendo cuantas filas fueron afectadas
 		GET DIAGNOSTICS my_var = ROW_COUNT;	
 				
 		-- si no es lo esperado , hacer un rollback
-		IF my_var != _nro_registros_a_afectar 	THEN  
+		IF my_var != _nro_registros_a_afectar 	THEN
+			_err_Mensaje := 'Transaccion Roll Back';
 			RAISE EXCEPTION transaction_rollback;
 		END IF ;
-		*/ 
+		
 	ELSE
 		RAISE NOTICE '======>CI NO SE ENCONTRO'; 
 		_obj_informacion_afectada.inf_codigo		:= _docidentidad_old;
-		_obj_informacion_afectada.inf_complemento	:= 'NO SE ENCONTRO EL DOCUMENTO DE IDENTIDAD-EXTERNO';
+		_obj_informacion_afectada.inf_complemento	:= 'NO SE ENCONTRO EL DOCUMENTO DE IDENTIDAD-SEGIMIENTO CAPACITACION';
 		_obj_informacion_afectada.err_Existente		:= 1;
 		_obj_informacion_afectada.err_Mensaje		:= '';
 		_obj_informacion_afectada.err_codigo		:= 0;
