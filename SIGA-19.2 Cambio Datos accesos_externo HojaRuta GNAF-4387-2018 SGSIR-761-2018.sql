@@ -21,7 +21,15 @@ $BODY$
 DECLARE
 	my_var INTEGER;
 	_data_historico JSON;
+_obj_informacion_afectada public.objinformacion_afectada%rowtype;
 BEGIN
+	-- Tipo de dato de retorno
+	SELECT	'',            -- inf_codigo VARCHAR(1000),
+			'',            -- inf_complemento VARCHAR(1000),
+			0,             -- err_existente INTEGER,
+			'',            -- err_mensaje VARCHAR(1000),
+			0              -- err_codigo INTEGER
+	INTO _obj_informacion_afectada;
 	my_var:=0;
 	
 	--1.-	CE/LP-T273-504/2018
@@ -45,6 +53,9 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF; 
+	--2.-	CE/LP-T33-075/2017  --75
+	--		6724235
+	select acceso_externo.changeCI('75', '6724235-LP','VARGAS','PACO', '6724235', 1) into _obj_informacion_afectada;
 	--3.-	CE/LP-T202-399/2018
 	--		3290423
 	SELECT row_to_json (row1) INTO _data_historico
@@ -101,7 +112,7 @@ BEGIN
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
-		pepre_nombres = 'NICOLE VIVIANA'		--NICOLE VIVIAANA
+		perpre_nombres = 'NICOLE VIVIANA'		--NICOLE VIVIAANA
 	WHERE perpre_numero_docidentidad = '5963141' 
 	and  perpre_codigo = '20181004_RNYKID';
 	GET DIAGNOSTICS my_var = ROW_COUNT;	
@@ -109,6 +120,9 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
+	--10.-	MU/LP-T32-798/2018  --1507
+	--		6125423
+	select acceso_externo.changeCI('1507', '6125423-LP','QUISPE','FRANCO', '6125423', 1) into _obj_informacion_afectada;
 	--15.-	MU/LP-A10-851/2018
 	--		4799716
 	SELECT row_to_json (row1) INTO _data_historico
@@ -191,6 +205,41 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
+
+	--25.-	CE/LP-T10-616/2017   --617 
+	--		10917527
+	select acceso_externo.changeCI('617', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--26.-	CE/LP-T10-617/2017  --618
+	--		10917527
+	select acceso_externo.changeCI('618', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--27.-	CE/LP-T10-618/2017  --619
+	--		10917527
+	select acceso_externo.changeCI('619', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--28.-	CE/LP-T10-620/2017  --621
+	--		10917527
+	select acceso_externo.changeCI('621', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--29.-	CE/LP-T11-087/2018  --787
+	--		10917527
+	select acceso_externo.changeCI('787', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--30.-	CE/LP-T12-088/2018  --788
+	--		10917527
+	select acceso_externo.changeCI('788', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--31.-	CE/LP-T13-089/2018  --789
+	--		10917527
+	select acceso_externo.changeCI('789', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--32.-	CE/LP-T14-090/2018  --797
+	--		10917527
+	select acceso_externo.changeCI('797', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--33.-	CE/LP-T15-091/2018  --798
+	--		10917527
+	select acceso_externo.changeCI('798', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--34.-	CE/LP-T32-074/2017  --74
+	--		10917527
+	select acceso_externo.changeCI('74', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	--35.-	CE/LP-T93-231/2017  --231
+	--		10917527
+	select acceso_externo.changeCI('231', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	
 	--44.-	CE/LP-T379-820/2018
 	--		4308607
 	SELECT row_to_json (row1) INTO _data_historico
@@ -217,7 +266,7 @@ BEGIN
 	-- 20180930_BMSHUJ
 	SELECT row_to_json (row1) INTO _data_historico
 	FROM (
-	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_codigo = '20181018_LPQMVF' and pp.perpre_codigo = '20180930_BMSHUJ'
+	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_codigo = '20181030_XRBRAE' or pp.perpre_codigo = '20180930_BMSHUJ'
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_datos_primarios
@@ -228,10 +277,10 @@ BEGIN
    	set
    		perpre_apellido_paterno = '',		--ROJAS
 		perpre_apellido_materno = 'ROJAS' 	--''
-	WHERE perpre_codigo = '20181018_LPQMVF' and perpre_codigo = '20180930_BMSHUJ'; 
+	WHERE perpre_codigo = '20181030_XRBRAE' or perpre_codigo = '20180930_BMSHUJ'; 
 	GET DIAGNOSTICS my_var = ROW_COUNT;
-	RAISE NOTICE '44: % ', my_var;
-	IF my_var != 1 	THEN  
+	RAISE NOTICE '49: % ', my_var;
+	IF my_var != 2 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
 END;

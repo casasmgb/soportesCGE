@@ -27,8 +27,6 @@ WHERE pcc.procurcod_sigla = 'CE/LP-T93-231/2017'
 AND p.perpre_numero_docidentidad = '10917527-LP'
 */
 
--- drop function seguimiento_capacitacion.correccionDatos()  
-
 CREATE OR REPLACE FUNCTION seguimiento_capacitacion.correccionDatos4387()  
 RETURNS SETOF objinformacion_afectada
  LANGUAGE plpgsql
@@ -50,32 +48,18 @@ BEGIN
 	INTO _obj_informacion_afectada;
 	my_var:=0;
 	
-	--1.-	CE/LP-T273-504/2018
-	--		6062848
-	--2.-	CE/LP-T33-075/2017
-	--		6724235
-	select seguimiento_capacitacion.changeCI('CE/LP-T33-075/2017', '6724235-LP','VARGAS','PACO', '6724235', 1) into _obj_informacion_afectada;
-	--3.-	CE/LP-T202-399/2018
-	--		3290423
 	--4.-	CE/LP-T376-817/2018
 	--		2394260
 	select seguimiento_capacitacion.changeCI('CE/LP-T376-817/2018', '2394260-LP','URQUIDI','CARDENAS', '2394260', 1) into _obj_informacion_afectada;
-	--5.-	MU/SC-T41-792/2018
-	--		7737021
 	--6.-	CE/LP-T392-862/2018
 	--		2448749
 	select * from  seguimiento_capacitacion.changeCI('CE/LP-T392-862/2018', '2448749-LP','SALINAS','SARAVIA', '2448749', 1) into _obj_informacion_afectada;
-	--7.-	CE/LP-T388-858/2018
-	--		5963141
 	--8.-	CE/LP-T372-813/2018
 	--		6988817
 	select seguimiento_capacitacion.changeCI('CE/LP-T372-813/2018', '6988817-LP','ROMERO','CALLE', '6988817', 1) into _obj_informacion_afectada;
 	--9.-	CE/LP-T354-749/2018
 	--		6987176
 	select seguimiento_capacitacion.changeCI('CE/LP-T354-749/2018', '6987176-LP','RAMOS','CORANI', '6987176', 1) into _obj_informacion_afectada;
-	--10.-	MU/LP-T32-798/2018
-	--		6125423
-	select seguimiento_capacitacion.changeCI('MU/LP-T32-798/2018', '6125423-LP','QUISPE','FRANCO', '6125423', 1) into _obj_informacion_afectada;
 	--11.-	CE/LP-A65-830/2018
 	--		3390285
 	select seguimiento_capacitacion.changeCI('CE/LP-A65-830/2018', '3390285-LP','PRADO','SARDINAS', '3390285', 1) into _obj_informacion_afectada;
@@ -88,8 +72,6 @@ BEGIN
 	--14.-	CE/SC-T20-562/2017
 	--		8074859
 	select seguimiento_capacitacion.changeCI('CE/SC-T20-562/2017', '8074859-SC','MONTAÑO','CALZADILLA', '8074859', 1) into _obj_informacion_afectada;
-	--15.-	MU/LP-A10-851/2018
-	--		4799716
 	--16.-	CE/LP-T378-819/2018
 	--		9127475
 	select seguimiento_capacitacion.changeCI('CE/LP-T378-819/2018', '9127475-LP','MOLLO','CHAMBILLA', '9127475', 1) into _obj_informacion_afectada;
@@ -102,7 +84,7 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de nombres');
 	 
 	UPDATE seguimiento_capacitacion.personas p
 	SET
@@ -118,8 +100,6 @@ BEGIN
 	--19.-	CE/LP-A76-863/2018
 	--		4751133
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '4751133-LP','LUNA','QUISPE', '4751133', 1) into _obj_informacion_afectada;
-	--20.-	PO/LP-A17-425/2018
-	--		7041289
 	--21.-	CE/LP-A76-863/2018
 	--		6003928
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '6003928-LP','HUANCA','TICONA', '6003928', 1) into _obj_informacion_afectada;
@@ -132,7 +112,7 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de codigo de departamento');
 	
 	UPDATE seguimiento_capacitacion.personas p
 	SET
@@ -142,42 +122,10 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ;
-	--23  24.-	CE/LP-T10-357/2017
+	--23  24 - 35.-	CE/LP-T10-357/2017
 	--		10917527
 	select seguimiento_capacitacion.changeCI('CE/LP-T10-357/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--25.-	CE/LP-T10-616/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T10-616/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--26.-	CE/LP-T10-617/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T10-617/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--27.-	CE/LP-T10-618/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T10-618/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--28.-	CE/LP-T10-620/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T10-618/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--29.-	CE/LP-T11-087/2018
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T10-620/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--30.-	CE/LP-T12-088/2018
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T12-088/2018', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--31.-	CE/LP-T13-089/2018
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T13-089/2018', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--32.-	CE/LP-T14-090/2018
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T14-090/2018', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--33.-	CE/LP-T15-091/2018
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T15-091/2018', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--34.-	CE/LP-T32-074/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T32-074/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--35.-	CE/LP-T93-231/2017
-	--		10917527
-	select seguimiento_capacitacion.changeCI('CE/LP-T93-231/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	
 	--36.-	CE/LP-T221-430/2018
 	--		3439746
 	select seguimiento_capacitacion.changeCI('CE/LP-T221-430/2018', '3439746-LP','FARFAN','RAMOS', '3439746', 1) into _obj_informacion_afectada;
@@ -202,8 +150,6 @@ BEGIN
 	--43.-	MU/LP-A04-623/2018
 	--		8286453
 	select seguimiento_capacitacion.changeCI('MU/LP-A04-623/2018', '8286453-LP','ASTURILLO','FLORES', '8286453', 1) into _obj_informacion_afectada;
-	--44.-	CE/LP-T379-820/2018
-	--		4308607
 	--45.-	CE/CB-T34-778/2018
 	--		7956915
 	select seguimiento_capacitacion.changeCI('CE/CB-T34-778/2018', '7956915-CB','ADRIAN','CONDORI', '7956915', 1) into _obj_informacion_afectada;
@@ -227,10 +173,11 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de apellidos paterno y materno');
 	
 	UPDATE seguimiento_capacitacion.personas p
-	SET
+	set
+		per_codigopersona = '_RA4888820', --R_A4888820
 		per_appaterno = '', 	--ROJAS
 		per_apmaterno = 'ROJAS'	-- 
         WHERE p.per_docidentidad='4888820';

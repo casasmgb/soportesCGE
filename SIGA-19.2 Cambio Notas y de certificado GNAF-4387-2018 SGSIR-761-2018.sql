@@ -1,23 +1,35 @@
 --====================================================================================
 	/*
-	HOJA DE RUTA GNAF 3347/2018 SGSIR/628/2018
-	
-	CENCAP/CI-583/2018
+	HOJA DE RUTA GNAF 4387/2018 SGSIR/761/2018
+	CENCAP/CI-712/2018
 	DE: LIC. GLORIA DEL SALVADOR SAMORANO LUJAN
-	FECHA REMICION DE HR: 14/09/2018
-	MODIFICAR CALIFICACIONES Y OTORGAR CERTIFICADO EN EL SISTEMA SIGA
+	FECHA REMICION DE HR: 15/11/2018
+	MODIFICAR DATOS DE NOTAS EN EL SISTEMA SIGA
 	SISTEMA:SIGA
-	FECHA EJECUCION: 19/09/2018
+	USUARIO DB: USRACADEMICO
+	MOTOR BASE DE DATOS: POSTGRES
+	FECHA EJECUCION: 20/11/2018
 	POR: LIC. GABRIEL CASAS MAMANI.
 	*/
 --====================================================================================
 -- ACTUALIZACION DE NOTAS --------------------------------------------
 
 SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc WHERE pcc.procurcod_sigla='CE/LP-T304-538/2018'
+
 SELECT * FROM acceso_externo.persona_preinscripcion p 
 where p.perpre_apellido_paterno = 'GONZALES' and p.perpre_apellido_materno = 'BRETON' AND p.procur_codigo=1258
 
 SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e WHERE e.perpre_codigo='20180719_RRRYIH';
+
+
+SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
+inner join acceso_externo.persona_preinscripcion as pp
+on pcc.procur_codigo=pp.procur_codigo
+inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
+on pp.perpre_codigo = edpi.perpre_codigo
+WHERE pcc.procurcod_sigla='CE/LP-T304-538/2018' and pp.perpre_apellido_paterno = 'GONZALES' and pp.perpre_apellido_materno = 'BRETON'
+
+
 -- per_codigo = 16838
 -- evadocperins_codigo = 39514
 
@@ -29,7 +41,7 @@ SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e W
 		
 		<row>
 		  <doccrieva_codigo>1</doccrieva_codigo>
-		  <doccrieva_descripcion>ELABORACIÓN DE 2 TRABAJO PRÁCTICOS</doccrieva_descripcion>
+		  <doccrieva_descripcion>ELABORACIÃ“N DE 2 TRABAJO PRÃ�CTICOS</doccrieva_descripcion>
 		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
 		  <calificacion>24.00</calificacion>
 		</row>
@@ -50,14 +62,14 @@ SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e W
 		
 		<row>
 		  <doccrieva_codigo>4</doccrieva_codigo>
-		  <doccrieva_descripcion>PRIMERA EVALUACIÓN EN LÍNEA</doccrieva_descripcion>
+		  <doccrieva_descripcion>PRIMERA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
 		  <calificacion>20.00</calificacion>
 		</row>
 		
 		<row>
 		  <doccrieva_codigo>5</doccrieva_codigo>
-		  <doccrieva_descripcion>SENGUNDA EVALUACIÓN EN LÍNEA</doccrieva_descripcion>
+		  <doccrieva_descripcion>SENGUNDA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
 		  <calificacion>20.00</calificacion>
 		</row>
@@ -98,7 +110,7 @@ SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e W
 		
 		<row>
 		  <doccrieva_codigo>1</doccrieva_codigo>
-		  <doccrieva_descripcion>ELABORACIÓN DE 2 TRABAJO PRÁCTICOS</doccrieva_descripcion>
+		  <doccrieva_descripcion>ELABORACIÃ“N DE 2 TRABAJO PRÃ�CTICOS</doccrieva_descripcion>
 		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
 		  <calificacion>24.00</calificacion>
 		</row>
@@ -119,14 +131,14 @@ SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e W
 		
 		<row>
 		  <doccrieva_codigo>4</doccrieva_codigo>
-		  <doccrieva_descripcion>PRIMERA EVALUACIÓN EN LÍNEA</doccrieva_descripcion>
+		  <doccrieva_descripcion>PRIMERA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
 		  <calificacion>15.00</calificacion>
 		</row>
 		
 		<row>
 		  <doccrieva_codigo>5</doccrieva_codigo>
-		  <doccrieva_descripcion>SENGUNDA EVALUACIÓN EN LÍNEA</doccrieva_descripcion>
+		  <doccrieva_descripcion>SENGUNDA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
 		  <calificacion>14.00</calificacion>
 		</row>

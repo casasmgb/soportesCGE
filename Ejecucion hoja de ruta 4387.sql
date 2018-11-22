@@ -35,5 +35,14 @@ CREATE TABLE acceso_externo.historico_datos_primarios(
     CONSTRAINT pk_auditoria PRIMARY KEY (id)
 );
 
+-- Ejecutar con usuario: USRACADEMICO
 SELECT seguimiento_capacitacion.correccionDatos4387();
+-- Ejecutar con usuario: EXTACADEMICO
 SELECT acceso_externo.correccionDatosNombres4387();
+
+-- visualizar los registros afectados
+-- Ejecutar con usuario: USRACADEMICO
+select * from seguimiento_capacitacion.historico_datos_primarios
+-- Ejecutar con usuario: EXTACADEMICO
+select * from acceso_externo.historico_datos_primarios
+

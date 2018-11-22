@@ -83,7 +83,7 @@ BEGIN
 		AND pp.perpre_apellido_materno = i_per_apmaterno
 		AND pp.perpre_codigo = _perpre_codigo
 	) row1;
-	
+	raise notice '_data_historico %', _data_historico;
 	INSERT INTO acceso_externo.historico_datos_primarios
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');

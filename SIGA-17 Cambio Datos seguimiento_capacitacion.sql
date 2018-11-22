@@ -69,7 +69,7 @@ BEGIN
 		-- LLAMAR A ACCESO EXTERNO
 	select acceso_externo.changeCI(_procur_codigo, _docidentidad_old, i_per_appaterno, i_per_apmaterno, _docidentidad_new, _nro_registros_a_afectar) INTO _obj_informacion_afectada_externo;
 	if _obj_informacion_afectada_externo.err_Existente != 0 then
-		_err_Mensaje := 'Roll back llamada a acceso_externo.spr_desvincular_cuenta_participante';
+		_err_Mensaje := 'Roll back llamada a acceso_externo.changeCI';
 		RAISE EXCEPTION transaction_rollback;
 	end if;
 	
@@ -80,11 +80,11 @@ BEGIN
 	 	select REPLACE (_per_codigopersona, _docidentidad_old, _docidentidad_new) into _new_per_codigopersona;
 	 
 	 	-- traza 
-		SELECT row_to_json (row1) INTO _data_historico
+		SELECT row_to_json (row1) INTO _data_historico 
 		FROM (
 		    SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad=_docidentidad_old AND p.per_appaterno = i_per_appaterno AND p.per_apmaterno = i_per_apmaterno
 		) row1;
-	
+		raise notice '_data_historico %', _data_historico;
 	 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
 	 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
