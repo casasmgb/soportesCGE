@@ -17,8 +17,9 @@
 	*/
 --====================================================================================
 -- Ejecutar con usuario: USRACADEMICO
-CREATE TABLE seguimiento_capacitacion.historico_datos_primarios(
+CREATE TABLE seguimiento_capacitacion.historico_participantes(
     id SERIAL NOT NULL,
+    tabla CHARACTER VARYING(50),
     traza JSON,
     fecha_ejecucion TIMESTAMP WITH TIME ZONE,
     funcionario_sgsir_responsable CHARACTER VARYING(50),
@@ -26,8 +27,9 @@ CREATE TABLE seguimiento_capacitacion.historico_datos_primarios(
     CONSTRAINT pk_auditoria PRIMARY KEY (id)
 );
 -- Ejecutar con usuario: EXTACADEMICO
-CREATE TABLE acceso_externo.historico_datos_primarios(
+CREATE TABLE acceso_externo.historico_participantes(
     id SERIAL NOT NULL,
+    tabla CHARACTER VARYING(50),
     traza JSON,
     fecha_ejecucion TIMESTAMP WITH TIME ZONE,
     funcionario_sgsir_responsable CHARACTER VARYING(50),
@@ -36,13 +38,17 @@ CREATE TABLE acceso_externo.historico_datos_primarios(
 );
 
 -- Ejecutar con usuario: USRACADEMICO
-SELECT seguimiento_capacitacion.correccionDatos4387();
+SELECT seguimiento_capacitacion.correccionDatos4387_01();
+SELECT seguimiento_capacitacion.correccionDatos4387_02();
+SELECT seguimiento_capacitacion.correccionDatos4387_03();
 -- Ejecutar con usuario: EXTACADEMICO
-SELECT acceso_externo.correccionDatosNombres4387();
+SELECT acceso_externo.correccionDatosNombres4387_01();
+SELECT acceso_externo.correccionDatosNombres4387_02();
+SELECT acceso_externo.correccionDatosNombres4387_03();
 
 -- visualizar los registros afectados
 -- Ejecutar con usuario: USRACADEMICO
-select * from seguimiento_capacitacion.historico_datos_primarios
+select * from seguimiento_capacitacion.historico_participantes
 -- Ejecutar con usuario: EXTACADEMICO
-select * from acceso_externo.historico_datos_primarios
+select * from acceso_externo.historico_participantes
 

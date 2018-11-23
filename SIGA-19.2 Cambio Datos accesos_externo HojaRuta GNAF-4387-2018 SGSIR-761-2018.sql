@@ -39,7 +39,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '6062848' and  pp.perpre_codigo = '20180822_EQFGHY'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'actualizar nombre');
 	 
@@ -63,7 +63,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '3290423' and  pp.perpre_codigo = '20180622_CUDMQP'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno y materno');
 	
@@ -85,7 +85,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '7737021' and  pp.perpre_codigo = '20180926_WMSGGW'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellido materno');
 	
@@ -106,7 +106,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '5963141' and  pp.perpre_codigo = '20181004_RNYKID'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
@@ -130,7 +130,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '4799716' and  pp.perpre_codigo = '20181017_ALKROH'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno');
 	
@@ -151,7 +151,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '7315747' and  pp.perpre_codigo = '20181017_JYTRMT'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
@@ -165,14 +165,14 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
-	--20.-	PO/LP-A17-425/2017
+	--19.-	PO/LP-A17-425/2017
 	--		7041289
 	SELECT row_to_json (row1) INTO _data_historico
 	FROM (
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_numero_docidentidad = '7041289'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellido paterno');
 	
@@ -185,14 +185,14 @@ BEGIN
 	IF my_var != 2 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
-	--22.-	CE/LP-E09-827/2018
+	--21.-	CE/LP-E09-827/2018
 	--		4446619
 	SELECT row_to_json (row1) INTO _data_historico
 	FROM (
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_codigo = '20181016_RGKAGY'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio codigo de expedicion');
 	
@@ -206,48 +206,48 @@ BEGIN
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
 
-	--25.-	CE/LP-T10-616/2017   --617 
+	--24.-	CE/LP-T10-616/2017   --617 
 	--		10917527
 	select acceso_externo.changeCI('617', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--26.-	CE/LP-T10-617/2017  --618
+	--25.-	CE/LP-T10-617/2017  --618
 	--		10917527
 	select acceso_externo.changeCI('618', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--27.-	CE/LP-T10-618/2017  --619
+	--26.-	CE/LP-T10-618/2017  --619
 	--		10917527
 	select acceso_externo.changeCI('619', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--28.-	CE/LP-T10-620/2017  --621
+	--27.-	CE/LP-T10-620/2017  --621
 	--		10917527
 	select acceso_externo.changeCI('621', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--29.-	CE/LP-T11-087/2018  --787
+	--28.-	CE/LP-T11-087/2018  --787
 	--		10917527
 	select acceso_externo.changeCI('787', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--30.-	CE/LP-T12-088/2018  --788
+	--29.-	CE/LP-T12-088/2018  --788
 	--		10917527
 	select acceso_externo.changeCI('788', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--31.-	CE/LP-T13-089/2018  --789
+	--30.-	CE/LP-T13-089/2018  --789
 	--		10917527
 	select acceso_externo.changeCI('789', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--32.-	CE/LP-T14-090/2018  --797
+	--31.-	CE/LP-T14-090/2018  --797
 	--		10917527
 	select acceso_externo.changeCI('797', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--33.-	CE/LP-T15-091/2018  --798
+	--32.-	CE/LP-T15-091/2018  --798
 	--		10917527
 	select acceso_externo.changeCI('798', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--34.-	CE/LP-T32-074/2017  --74
+	--33.-	CE/LP-T32-074/2017  --74
 	--		10917527
 	select acceso_externo.changeCI('74', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	--35.-	CE/LP-T93-231/2017  --231
+	--34.-	CE/LP-T93-231/2017  --231
 	--		10917527
 	select acceso_externo.changeCI('231', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
 	
-	--44.-	CE/LP-T379-820/2018
+	--43.-	CE/LP-T379-820/2018
 	--		4308607
 	SELECT row_to_json (row1) INTO _data_historico
 	FROM (
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_codigo = '20181018_LPQMVF'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'quitar apellido de esposo');
 	
@@ -260,7 +260,7 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
-	--49.-	CE/LP-T366-799/2018
+	--48.-	CE/LP-T366-799/2018
 	--		4888820
 	-- 20181030_XRBRAE
 	-- 20180930_BMSHUJ
@@ -269,7 +269,7 @@ BEGIN
 	    SELECT * FROM acceso_externo.persona_preinscripcion pp WHERE pp.perpre_codigo = '20181030_XRBRAE' or pp.perpre_codigo = '20180930_BMSHUJ'
 	) row1;
 	
-	INSERT INTO acceso_externo.historico_datos_primarios
+	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'cambio de apellidos paterno y materno ');
 	

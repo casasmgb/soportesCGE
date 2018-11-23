@@ -85,9 +85,9 @@ BEGIN
 		    SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad=_docidentidad_old AND p.per_appaterno = i_per_appaterno AND p.per_apmaterno = i_per_apmaterno
 		) row1;
 		raise notice '_data_historico %', _data_historico;
-	 	INSERT INTO seguimiento_capacitacion.historico_datos_primarios
-	 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	 	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	 	INSERT INTO seguimiento_capacitacion.historico_participantes
+	 	(traza, tabla, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	 	VALUES(_data_historico,'seguimiento_capacitacion.personas' ,now(), 'Gabriel Casas M.', 'Cambio de CI');
 	 	
 	 	UPDATE seguimiento_capacitacion.personas p
 		SET

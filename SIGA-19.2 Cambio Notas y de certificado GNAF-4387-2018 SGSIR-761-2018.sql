@@ -14,148 +14,175 @@
 --====================================================================================
 -- ACTUALIZACION DE NOTAS --------------------------------------------
 
-SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc WHERE pcc.procurcod_sigla='CE/LP-T304-538/2018'
-
-SELECT * FROM acceso_externo.persona_preinscripcion p 
-where p.perpre_apellido_paterno = 'GONZALES' and p.perpre_apellido_materno = 'BRETON' AND p.procur_codigo=1258
-
-SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e WHERE e.perpre_codigo='20180719_RRRYIH';
-
-
-SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
+SELECT edpi.evadocperins_codigo, edpi.per_codigo, pcc.procur_codigo, edpi.evadocperins_calificaciones, edpi.evadocperins_nota_total, edpi.perpre_codigo , * 
+FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
 inner join acceso_externo.persona_preinscripcion as pp
 on pcc.procur_codigo=pp.procur_codigo
 inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
 on pp.perpre_codigo = edpi.perpre_codigo
-WHERE pcc.procurcod_sigla='CE/LP-T304-538/2018' and pp.perpre_apellido_paterno = 'GONZALES' and pp.perpre_apellido_materno = 'BRETON'
-
-
--- per_codigo = 16838
--- evadocperins_codigo = 39514
+WHERE pcc.procurcod_sigla='CE/LP-T197-394/2018' and pp.perpre_apellido_paterno = 'YAÑEZ' and pp.perpre_apellido_materno = 'CORNEJO'
 
 	--PARA EJECUTAR
 	update seguimiento_capacitacion.evaluacion_docente_personas_inscritas
 	set
 	evadocperins_calificaciones = '
 		<table xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		
-		<row>
-		  <doccrieva_codigo>1</doccrieva_codigo>
-		  <doccrieva_descripcion>ELABORACIÃ“N DE 2 TRABAJO PRÃ�CTICOS</doccrieva_descripcion>
-		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
-		  <calificacion>24.00</calificacion>
-		</row>
-		
-		<row>
-		  <doccrieva_codigo>2</doccrieva_codigo>
-		  <doccrieva_descripcion>PARTICIPACION EN 2 FOROS DEBATE</doccrieva_descripcion>
-		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>11.00</calificacion>
-		</row>
-		
-		<row>
-		  <doccrieva_codigo>3</doccrieva_codigo>
-		  <doccrieva_descripcion>PARTICIPACION EN LA SALA DE CHAT</doccrieva_descripcion>
-		  <doccrieva_ponderacion>10.00</doccrieva_ponderacion>
-		  <calificacion>8.00</calificacion>
-		</row>
-		
-		<row>
-		  <doccrieva_codigo>4</doccrieva_codigo>
-		  <doccrieva_descripcion>PRIMERA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
-		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>20.00</calificacion>
-		</row>
-		
-		<row>
-		  <doccrieva_codigo>5</doccrieva_codigo>
-		  <doccrieva_descripcion>SENGUNDA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
-		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>20.00</calificacion>
-		</row>
-		
-	</table>
+			<row>
+			  <doccrieva_codigo>1</doccrieva_codigo>
+			  <doccrieva_descripcion>FOROS</doccrieva_descripcion>
+			  <doccrieva_ponderacion>10.00</doccrieva_ponderacion>
+			  <calificacion>10.00</calificacion>
+			</row>
+			
+			<row>
+			  <doccrieva_codigo>2</doccrieva_codigo>
+			  <doccrieva_descripcion>CHATS</doccrieva_descripcion>
+			  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
+			  <calificacion>20.00</calificacion>
+			</row>
+			
+			<row>
+			  <doccrieva_codigo>3</doccrieva_codigo>
+			  <doccrieva_descripcion>TRABAJOS</doccrieva_descripcion>
+			  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
+			  <calificacion>30.00</calificacion>
+			</row>
+			
+			<row>
+			  <doccrieva_codigo>4</doccrieva_codigo>
+			  <doccrieva_descripcion>EXAMENES</doccrieva_descripcion>
+			  <doccrieva_ponderacion>40.00</doccrieva_ponderacion>
+			  <calificacion>35.00</calificacion>
+			</row>
+			
+		</table>
 	',
-	evadocperins_nota_total = 83.00
-	
-	where evadocperins_codigo = 39514 and procur_codigo = 1258 and perpre_codigo = '20180719_RRRYIH'
+	evadocperins_nota_total = 95.00
+	where evadocperins_codigo = 46954 and procur_codigo = 1101 and perpre_codigo = '20180626_BCQGDN'
 	
 	-- ACTUALIZAR LOS DATOS DEL CERTIFICADO
-	select * from seguimiento_capacitacion.certificacion_persona where per_codigo =16838 and perpre_codigo = '20180719_RRRYIH' and codcer_numero = '17186'
-	
+	select * from seguimiento_capacitacion.certificacion_persona where per_codigo =16557 and perpre_codigo = '20180626_BCQGDN' and codcer_numero = '24098'
 	
 	--PARA EJECUTAR
 	update seguimiento_capacitacion.certificacion_persona 
-	set cerper_nota_total = 83.00
-	where per_codigo =16838 and perpre_codigo = '20180719_RRRYIH' and codcer_numero = '17186'
+	set cerper_nota_total = 95.00
+	where per_codigo =16557 and perpre_codigo = '20180626_BCQGDN' and codcer_numero = '24098'
 	
 	
 --====================================================================================
 -- ACTUALIZACION DE NOTAS --------------------------------------------
 
-SELECT * FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc WHERE pcc.procurcod_sigla='CE/LP-T304-538/2018'
-SELECT * FROM acceso_externo.persona_preinscripcion p 
-where p.perpre_apellido_paterno = 'GONZALES' and p.perpre_apellido_materno = 'SOLANO'  AND p.procur_codigo=1258
-         
-         
-SELECT * FROM seguimiento_capacitacion.evaluacion_docente_personas_inscritas e WHERE e.perpre_codigo='20180723_MCCUGG';
--- 1109
--- evadocperins_codigo = 39514
+SELECT edpi.evadocperins_codigo, edpi.per_codigo, pcc.procur_codigo, edpi.evadocperins_calificaciones, edpi.evadocperins_nota_total, edpi.perpre_codigo , * 
+FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
+inner join acceso_externo.persona_preinscripcion as pp
+on pcc.procur_codigo=pp.procur_codigo
+inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
+on pp.perpre_codigo = edpi.perpre_codigo
+WHERE pcc.procurcod_sigla='CE/LP-T197-394/2018' and pp.perpre_apellido_paterno = 'MURILLO' and pp.perpre_apellido_materno = 'TORREZ'
 
 	--PARA EJECUTAR
 	update seguimiento_capacitacion.evaluacion_docente_personas_inscritas
 	set
 	evadocperins_calificaciones = '
 	<table xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		
+	
 		<row>
 		  <doccrieva_codigo>1</doccrieva_codigo>
-		  <doccrieva_descripcion>ELABORACIÃ“N DE 2 TRABAJO PRÃ�CTICOS</doccrieva_descripcion>
-		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
-		  <calificacion>24.00</calificacion>
+		  <doccrieva_descripcion>FOROS</doccrieva_descripcion>
+		  <doccrieva_ponderacion>10.00</doccrieva_ponderacion>
+		  <calificacion>10.00</calificacion>
 		</row>
 		
 		<row>
 		  <doccrieva_codigo>2</doccrieva_codigo>
-		  <doccrieva_descripcion>PARTICIPACION EN 2 FOROS DEBATE</doccrieva_descripcion>
+		  <doccrieva_descripcion>CHATS</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>14.00</calificacion>
+		  <calificacion>20.00</calificacion>
 		</row>
 		
 		<row>
 		  <doccrieva_codigo>3</doccrieva_codigo>
-		  <doccrieva_descripcion>PARTICIPACION EN LA SALA DE CHAT</doccrieva_descripcion>
-		  <doccrieva_ponderacion>10.00</doccrieva_ponderacion>
-		  <calificacion>4.00</calificacion>
+		  <doccrieva_descripcion>TRABAJOS</doccrieva_descripcion>
+		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
+		  <calificacion>30.00</calificacion>
 		</row>
 		
 		<row>
 		  <doccrieva_codigo>4</doccrieva_codigo>
-		  <doccrieva_descripcion>PRIMERA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
-		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>15.00</calificacion>
+		  <doccrieva_descripcion>EXAMENES</doccrieva_descripcion>
+		  <doccrieva_ponderacion>40.00</doccrieva_ponderacion>
+		  <calificacion>39.00</calificacion>
+		</row>
+	
+	</table>
+	',
+	evadocperins_nota_total = 99.00
+	where evadocperins_codigo = 46936 and procur_codigo = 1101 and perpre_codigo = '20180612_MEZTKD'
+	
+	-- ACTUALIZAR LOS DATOS DEL CERTIFICADO
+	select * from seguimiento_capacitacion.certificacion_persona where per_codigo =3160 and perpre_codigo = '20180612_MEZTKD' and codcer_numero = '24080'
+	
+	--PARA EJECUTAR
+	update seguimiento_capacitacion.certificacion_persona 
+	set cerper_nota_total = 99.00
+	where per_codigo =3160 and perpre_codigo = '20180612_MEZTKD' and codcer_numero = '24080'
+	
+--====================================================================================
+-- ACTUALIZACION DE NOTAS --------------------------------------------
+
+SELECT edpi.evadocperins_codigo, edpi.per_codigo, pcc.procur_codigo, edpi.evadocperins_calificaciones, edpi.evadocperins_nota_total, edpi.perpre_codigo , * 
+FROM seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
+inner join acceso_externo.persona_preinscripcion as pp
+on pcc.procur_codigo=pp.procur_codigo
+inner join seguimiento_capacitacion.evaluacion_docente_personas_inscritas edpi
+on pp.perpre_codigo = edpi.perpre_codigo
+WHERE pcc.procurcod_sigla='CE/LP-T15-091/2018' and pp.perpre_apellido_paterno = 'ARROYO' and pp.perpre_apellido_materno = 'ZAPATA'
+
+	--PARA EJECUTAR
+	update seguimiento_capacitacion.evaluacion_docente_personas_inscritas
+	set
+	evadocperins_calificaciones = '
+	<table xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+		<row>
+		  <doccrieva_codigo>1</doccrieva_codigo>
+		  <doccrieva_descripcion>FOROS</doccrieva_descripcion>
+		  <doccrieva_ponderacion>10.00</doccrieva_ponderacion>
+		  <calificacion>10.00</calificacion>
 		</row>
 		
 		<row>
-		  <doccrieva_codigo>5</doccrieva_codigo>
-		  <doccrieva_descripcion>SENGUNDA EVALUACIÃ“N EN LÃ�NEA</doccrieva_descripcion>
+		  <doccrieva_codigo>2</doccrieva_codigo>
+		  <doccrieva_descripcion>CHATS</doccrieva_descripcion>
 		  <doccrieva_ponderacion>20.00</doccrieva_ponderacion>
-		  <calificacion>14.00</calificacion>
+		  <calificacion>20.00</calificacion>
 		</row>
 		
-	</table>
-	', 
-	evadocperins_nota_total = 71.00
-	where evadocperins_codigo = 39513 and procur_codigo = 1258 and perpre_codigo = '20180723_MCCUGG'
+		<row>
+		  <doccrieva_codigo>3</doccrieva_codigo>
+		  <doccrieva_descripcion>TRABAJOS</doccrieva_descripcion>
+		  <doccrieva_ponderacion>30.00</doccrieva_ponderacion>
+		  <calificacion>30.00</calificacion>
+		</row>
+		
+		<row>
+		  <doccrieva_codigo>4</doccrieva_codigo>
+		  <doccrieva_descripcion>EXAMENES</doccrieva_descripcion>
+		  <doccrieva_ponderacion>40.00</doccrieva_ponderacion>
+		  <calificacion>39.00</calificacion>
+		</row>
 	
+	</table>
+	',
+	evadocperins_nota_total = 99.00
+	where evadocperins_codigo = 46936 and procur_codigo = 1101 and perpre_codigo = '20180612_MEZTKD'
 	
 	-- ACTUALIZAR LOS DATOS DEL CERTIFICADO
-	select * from seguimiento_capacitacion.certificacion_persona where per_codigo =1109 and perpre_codigo = '20180723_MCCUGG' and codcer_numero = '17185'
+	select * from seguimiento_capacitacion.certificacion_persona where per_codigo =3160 and perpre_codigo = '20180612_MEZTKD' and codcer_numero = '24080'
 	
-	
-	-- PARA EJECUTAR
+	--PARA EJECUTAR
 	update seguimiento_capacitacion.certificacion_persona 
-	set cerper_nota_total = 71.00
-	where per_codigo =1109 and perpre_codigo = '20180723_MCCUGG' and codcer_numero = '17185'	
+	set cerper_nota_total = 99.00
+	where per_codigo =3160 and perpre_codigo = '20180612_MEZTKD' and codcer_numero = '24080'
 	
 	

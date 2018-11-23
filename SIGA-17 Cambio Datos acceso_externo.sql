@@ -62,10 +62,10 @@ BEGIN
 	FROM (
 	    SELECT * FROM acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo = _perpre_codigo
 	) row1;
-	
-	INSERT INTO acceso_externo.historico_datos_primarios
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio contraseña');
+	raise notice '_data_historico %', _data_historico;
+	INSERT INTO acceso_externo.historico_participantes
+	(traza, tabla, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	VALUES(_data_historico, 'acceso_externo.cuenta_persona_inscripcion', now(), 'Gabriel Casas M.', 'Cambio contraseña');
 	 
 	UPDATE acceso_externo.cuenta_persona_inscripcion
 	SET cueperins_contrasenia = _new_pass
@@ -84,9 +84,9 @@ BEGIN
 		AND pp.perpre_codigo = _perpre_codigo
 	) row1;
 	raise notice '_data_historico %', _data_historico;
-	INSERT INTO acceso_externo.historico_datos_primarios
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio de CI');
+	INSERT INTO acceso_externo.historico_participantes
+	(traza, tabla, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	VALUES(_data_historico, 'acceso_externo.cuenta_persona_inscripcion', now(), 'Gabriel Casas M.', 'Cambio de CI');
 	
 	UPDATE acceso_externo.persona_preinscripcion pp
 	SET 
