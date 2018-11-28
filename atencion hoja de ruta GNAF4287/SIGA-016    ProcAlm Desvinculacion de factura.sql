@@ -12,7 +12,7 @@
  * Motor de base de datos: PostgreSql
  * 
  * Ejemplo de ejecucion:
- * select seguimiento_capacitacion.spr_upd_desconsolidar_evento('CE/CB-CS04-689/2018')
+ * select select seguimiento_capacitacion.spr_desvincular_factura('CE/LP-E10-828/2018', '3613470');
  *******************************************/
 
 CREATE OR REPLACE FUNCTION seguimiento_capacitacion.spr_desvincular_factura(i_procur_sigla character varying, i_docidentidad character varying)
@@ -53,7 +53,7 @@ AS $function$
 		     INNER JOIN seguimiento_capacitacion.programacion_curso_codificacion pc ON pc.procur_codigo = d.procur_codigo
 		     inner join seguimiento_capacitacion.curso c
 		     on c.cur_codigo=d.cur_codigo
-		WHERE  pc.procurcod_sigla  IN (_procur_sigla); 
+		WHERE  pc.procurcod_sigla = _procur_sigla; 
 		raise notice '_procur_codigo:%',_procur_codigo;
 		
 		SELECT
@@ -74,7 +74,7 @@ AS $function$
 		     '',     --  cadena_busqueda varchar
 		     - 1 --  tipo_publicacion integer
 		     ) AS tab
-		WHERE tab.perpre_numero_docidentidad IN (_docidentidad);
+		WHERE tab.perpre_numero_docidentidad = _docidentidad;
 		raise notice '_perpre_codigo:%',_perpre_codigo;
 		
 		SELECT
@@ -82,7 +82,7 @@ AS $function$
 		     f.fac_codigo,
 		     f.facperins_codigo into _per_codigo, _fac_codigo, _facperins_codigo
 		FROM seguimiento_capacitacion.facturas_persona_inscripcion f
-		WHERE f.perpre_codigo  in (_perpre_codigo);
+		WHERE f.perpre_codigo  =_perpre_codigo;
 
 		raise notice '_per_codigo 3:%',_per_codigo;
 		raise notice '_fac_codigo 4:%',_fac_codigo;
@@ -90,13 +90,13 @@ AS $function$
 		-- NOW WE CAN EXECUTE UPDATE AND DELETE INFORMATION ABOUT BILL
 		
 		-- FIRST STEP
-		if not exists (SELECT * FROM seguimiento_capacitacion.facturas_persona_inscripcion f WHERE f.perpre_codigo IN (_perpre_codigo)) then
+		if not exists (SELECT * FROM seguimiento_capacitacion.facturas_persona_inscripcion f WHERE f.perpre_codigo =_perpre_codigo) then
 			_err_Mensaje := 'REGISTRO EN facturas_persona_inscripcion NO SE PUEDE ELIMINAR';
 			return _err_Mensaje;	
 		else 
 			DELETE
 			FROM seguimiento_capacitacion.facturas_persona_inscripcion f
-			WHERE f.perpre_codigo IN (_perpre_codigo);
+			WHERE f.perpre_codigo =_perpre_codigo;
 			GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;	
 			-- si no es lo esperado , hacer un rollback
 			IF _registros_actualizados != 1	then
@@ -116,7 +116,7 @@ AS $function$
 				update seguimiento_capacitacion.facturas f
 				set
 				fac_saldo_total = (_fac_saldo_total + _total_costo_curso)
-				where f.fac_codigo in (_fac_codigo);
+				where f.fac_codigo =_fac_codigo;
 			
 				GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;
 				IF _registros_actualizados != 1	THEN   
@@ -134,7 +134,7 @@ AS $function$
 					end if;
 					_operaciones := _operaciones || '**DELETE-UPDATE acceso_externo** ';	
 				-- THIRD STEP
-				if not exists (SELECT * FROM seguimiento_capacitacion.personas_inscripcion pe WHERE pe.perpre_codigo IN (_perpre_codigo)) then
+				if not exists (SELECT * FROM seguimiento_capacitacion.personas_inscripcion pe WHERE pe.perpre_codigo =_perpre_codigo) then
 					_err_Mensaje := 'REGISTRO EN personas_inscripcion NO SE PUEDE ELIMINAR';
 					RAISE EXCEPTION transaction_rollback;
 					return _err_Mensaje;	
@@ -163,23 +163,7 @@ AS $function$
 			RAISE NOTICE 'Error de actualizacion :(%) ',_err_Mensaje2;
 			RAISE EXCEPTION transaction_rollback;
 			return 'Excepcion ' || _err_Mensaje || _err_Mensaje2 || _err_Mensaje3 || _operaciones;
-	
 END;
 $function$
 
-
-/*
- * Ejecutar el script para quitar la asociacion de las facturas siguientes:
- * 
-select seguimiento_capacitacion.spr_desvincular_factura('CE/LP-E10-828/2018', '3613470');
-select seguimiento_capacitacion.spr_desvincular_factura('CE/LP-E10-828/2018', '4795261');
-
--- para verificar:
-
- SELECT * FROM seguimiento_capacitacion.facturas_persona_inscripcion f WHERE f.perpre_codigo IN ('20180912_OPJJCM' ); 			  -- delete
- select * from seguimiento_capacitacion.facturas where fac_codigo = 425320; 														  -- update
- SELECT * FROM seguimiento_capacitacion.personas_inscripcion pe WHERE pe.perpre_codigo IN ( '20180912_OPJJCM' );		 			  -- delete	
---      acceso exteno
- SELECT * from acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo IN ( '20180912_OPJJCM' ) 					  -- delete
- select * from acceso_externo.persona_preinscripcion pe WHERE pe.perpre_codigo IN   ('20180912_OPJJCM') and pe.perpre_estado = 2;   -- update
-*/
+-- drop function seguimiento_capacitacion.spr_desvincular_factura

@@ -12,7 +12,7 @@
  * Motor de base de datos: PostgreSql
  * 
  * Ejemplo de ejecucion:
- * select acceso_externo.spr_desvincular_cuenta_participante('CE/CB-CS04-689/2018')
+ * select acceso_externo.spr_desvincular_cuenta_participante('20180912_FZOKJN')
  *******************************************/
 
 
@@ -39,17 +39,16 @@ AS $function$
 		-- NOW WE CAN EXECUTE UPDATE AND DELETE INFORMATION ABOUT AN ACOUNT
 		
 		-- FIRST STEP
-		if not exists (SELECT * from acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo IN (_perpre_codigo)) then
+		if not exists (SELECT * from acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo = _perpre_codigo) then
 			_err_Mensaje := 'REGISTRO EN acceso_externo.cuenta_persona_inscripcion NO SE PUEDE ELIMINAR';
 			_ret := false;
 			return _ret;	
 		else 
 			DELETE
 			FROM acceso_externo.cuenta_persona_inscripcion cpi
-			WHERE cpi.perpre_codigo IN ( _perpre_codigo );
+			WHERE cpi.perpre_codigo = _perpre_codigo;
 			
 			GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;	
-			-- if doesn't it is that we will wish, we will make rollback
 			IF _registros_actualizados != 1	THEN   
 				_ret := false;
 				RAISE EXCEPTION transaction_rollback;
@@ -60,7 +59,7 @@ AS $function$
 		
 			-- SECOND STEP
 			if not exists ( select * from acceso_externo.persona_preinscripcion pe 
-						    WHERE pe.perpre_codigo IN   (_perpre_codigo) and pe.perpre_estado = 3) then
+						    WHERE pe.perpre_codigo =_perpre_codigo and pe.perpre_estado = 3) then
 				_ret := false;
 				_err_Mensaje := 'REGISTRO EN acceso_externo.persona_preinscripcion NO SE PUEDE ACTUALIZAR';
 				RAISE EXCEPTION transaction_rollback;
@@ -69,12 +68,9 @@ AS $function$
 			
 				UPDATE acceso_externo.persona_preinscripcion pe
 				SET perpre_estado = 2 --3
-				WHERE pe.perpre_codigo IN   (_perpre_codigo) and 
+				WHERE pe.perpre_codigo =_perpre_codigo and 
 				      pe.perpre_estado = 3;
-				      
 				GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;
-			
-				-- if doesn't it is that we will wish, we will make rollback
 				IF _registros_actualizados != 1	THEN   
 					_ret := false;	
 					RAISE EXCEPTION transaction_rollback;
@@ -82,7 +78,6 @@ AS $function$
 				END IF ;
 				_ret := true;
 				_operaciones := _operaciones || 'UPDATE** ';
-				
 				return _ret;
 			end if;
 		end if;
@@ -96,13 +91,7 @@ AS $function$
 			RAISE EXCEPTION transaction_rollback;
 			RAISE NOTICE 'Error de actualizacion :(%) ',_err_Mensaje;
 			return 'Excepcion ' || _err_Mensaje || _err_Mensaje2 || _err_Mensaje3 || _operaciones;
-	
 END;
 $function$
 
-
-
-
--- select acceso_externo.spr_desvincular_cuenta_participante('20180912_FZOKJN')
--- SELECT * from acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo IN ( '20180912_FZOKJN' )  -- delete
--- select * from acceso_externo.persona_preinscripcion pe WHERE pe.perpre_codigo IN   ('20180912_FZOKJN') and pe.perpre_estado = 2;  -- update
+-- drop function acceso_externo.spr_desvincular_cuenta_participante

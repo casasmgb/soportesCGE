@@ -21,10 +21,8 @@ select	p.perpre_codigo, pcc.procur_codigo, *
 FROM acceso_externo.persona_preinscripcion p
 INNER JOIN seguimiento_capacitacion.programacion_curso_codificacion AS pcc 
 ON p.procur_codigo = pcc.procur_codigo 
-WHERE pcc.procurcod_sigla = 'CE/LP-T376-817/2018' 
-AND p.perpre_numero_docidentidad = '2394260-LP'
-
-select * from seguimiento_capacitacion.personas where per_docidentidad like '%2394260%'
+WHERE pcc.procurcod_sigla = 'CE/LP-T33-075/2017' 
+AND p.perpre_numero_docidentidad = '6724235-LP'
 
 DO $$
 DECLARE 
@@ -44,17 +42,17 @@ _per_codigopersona CHARACTER VARYING(20);
 
 begin
 	
-	_old_ci:= '2394260-LP';
-	_new_ci:= '2394260';
-	_paterno:='URQUIDI';
-	_materno:='CARDENAS';
-	_per_codigopersona:='UCH2394260';
+	_old_ci:= '6724235-LP';
+	_new_ci:= '6724235';
+	_paterno:='VARGAS';
+	_materno:='PACO';
+	_per_codigopersona:='';
 	_perpre_codigo:='20181015_NJJWZZ';
 	_procur_codigo:=1526;
 	_funcionario:='Gabriel Casas';
 	
-	--4.-	CE/LP-T376-817/2018
-	--		2394260
+	--2.-	CE/LP-T33-075/2017  --75
+	--		6724235
 	SELECT row_to_json (row1) INTO _data_historico
 	FROM (
 	    SELECT * FROM acceso_externo.cuenta_persona_inscripcion cpi WHERE cpi.perpre_codigo = '20181015_NJJWZZ'
