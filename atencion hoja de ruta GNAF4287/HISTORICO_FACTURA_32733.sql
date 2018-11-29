@@ -13,7 +13,7 @@
 	'seguimiento_capacitacion.facturas_persona_inscripcion' as tabla,
 	now() as fecha_ejecucion, 
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
-	'factura  32733 - Borrar la asociacion de inscripcion' as comentario_accion_realizada;
+	'factura  32733 - Borrado logico de la asociacion de inscripcion' as comentario_accion_realizada;
 	
 -- HITORICO seguimiento_capacitacion.facturas
 	INSERT INTO seguimiento_capacitacion.historico_participantes
@@ -41,7 +41,7 @@
 	'seguimiento_capacitacion.personas_inscripcion' as tabla,
 	now() as fecha_ejecucion, 
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
-	'factura  32733 - borrar la inscripcion' as comentario_accion_realizada;
+	'factura  32733 - Borrado logico de la inscripcion' as comentario_accion_realizada;
 --==============================
 -- HITORICO seguimiento_capacitacion.certificacion_persona
 	INSERT INTO seguimiento_capacitacion.historico_participantes
@@ -55,7 +55,7 @@
 	'seguimiento_capacitacion.certificacion_persona' as tabla,
 	now() as fecha_ejecucion, 
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
-	'factura  32733 - eliminando el registro de certificado generado de la inscripcion' as comentario_accion_realizada;
+	'factura  32733 - Borrado logico de el registro de certificado generado de la inscripcion' as comentario_accion_realizada;
 -- HITORICO seguimiento_capacitacion.evaluacion_docente_personas_inscritas
 	INSERT INTO seguimiento_capacitacion.historico_participantes
 	(traza, tabla, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
@@ -68,7 +68,7 @@
 	'seguimiento_capacitacion.evaluacion_docente_personas_inscritas' as tabla,
 	now() as fecha_ejecucion, 
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
-	'factura  32733 - eliminando el registro de notas generado de la inscripcion' as comentario_accion_realizada;
+	'factura  32733 - Borrado logico de el registro de notas generado de la inscripcion' as comentario_accion_realizada;
 		
 --===========================
 -- HITORICO acceso_externo.cuenta_persona_inscripcion
@@ -83,12 +83,10 @@
 	'acceso_externo.cuenta_persona_inscripcion' as tabla,
 	now() as fecha_ejecucion, 
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
-	'factura  32733 - borrar la cuenta para la inscripcion' as comentario_accion_realizada;
+	'factura  32733 - Borrado logico de la cuenta para la inscripcion' as comentario_accion_realizada;
 
 
 -- HITORICO acceso_externo.persona_preinscripcion
-
-	
 	INSERT INTO  acceso_externo.historico_participantes
 	(traza, tabla, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	SELECT(
@@ -102,4 +100,4 @@
 	'Gabriel Casas M.' as funcionario_sgsir_responsable, 
 	'factura  32733 - actualizar el estado de la inscripcion eliminada' as comentario_accion_realizada;
 
-	
+

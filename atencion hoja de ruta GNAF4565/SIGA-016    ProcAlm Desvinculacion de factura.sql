@@ -57,9 +57,6 @@ AS $function$
 		raise notice '_procur_codigo:%',_procur_codigo;
 		
 		SELECT
-		     --tab.procur_codigo,
-		     --tab.procurcod_sigla,
-		     --tab.cur_nombre,
 		     tab.total_costo_curso,
 		     tab.perpre_codigo into _total_costo_curso, _perpre_codigo
 		FROM seguimiento_capacitacion.spr_sel_pre_inscritos ( 
@@ -94,8 +91,8 @@ AS $function$
 			_err_Mensaje := 'REGISTRO EN facturas_persona_inscripcion NO SE PUEDE ELIMINAR';
 			return _err_Mensaje;	
 		else 
-			DELETE
-			FROM seguimiento_capacitacion.facturas_persona_inscripcion f
+			update seguimiento_capacitacion.facturas_persona_inscripcion f
+			set facperins_estado=0
 			WHERE f.perpre_codigo =_perpre_codigo;
 			GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;	
 			-- si no es lo esperado , hacer un rollback
@@ -139,8 +136,8 @@ AS $function$
 					RAISE EXCEPTION transaction_rollback;
 					return _err_Mensaje;	
 				else 
-					DELETE
-					FROM seguimiento_capacitacion.personas_inscripcion pe
+					update seguimiento_capacitacion.personas_inscripcion pe
+					set perins_estado=0
 					WHERE pe.perpre_codigo = _perpre_codigo;
 					GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;	
 					IF _registros_actualizados != 1	THEN   

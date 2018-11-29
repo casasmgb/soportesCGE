@@ -3,8 +3,7 @@
 --fac_codigo =417247
 
 -- seguimiento_capacitacion ADDED
- select * from seguimiento_capacitacion.certificacion_persona where perpre_codigo = '20181010_XIIDLW'								--delete
- select * from seguimiento_capacitacion.evaluacion_docente_personas_inscritas where perpre_codigo='20181010_XIIDLW'					--delete
+ select * from seguimiento_capacitacion.evaluacion_docente_personas_inscritas where perpre_codigo='20181010_XIIDLW';					--delete
 -- seguimineto_capacitacion
  SELECT * FROM seguimiento_capacitacion.facturas_persona_inscripcion f WHERE f.perpre_codigo IN ('20181010_XIIDLW' ); 			    -- delete
  select * from seguimiento_capacitacion.facturas where fac_codigo = 417247; 														-- update

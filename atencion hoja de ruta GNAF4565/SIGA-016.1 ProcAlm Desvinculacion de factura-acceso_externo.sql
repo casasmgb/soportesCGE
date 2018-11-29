@@ -14,8 +14,6 @@
  * Ejemplo de ejecucion:
  * select acceso_externo.spr_desvincular_cuenta_participante('20180912_FZOKJN')
  *******************************************/
-
-
 CREATE OR REPLACE FUNCTION acceso_externo.spr_desvincular_cuenta_participante(i_perpre_codigo character varying)
  RETURNS boolean
  LANGUAGE plpgsql
@@ -44,10 +42,9 @@ AS $function$
 			_ret := false;
 			return _ret;	
 		else 
-			DELETE
-			FROM acceso_externo.cuenta_persona_inscripcion cpi
+			UPDATE acceso_externo.cuenta_persona_inscripcion cpi
+			set cueperins_estado = 0
 			WHERE cpi.perpre_codigo = _perpre_codigo;
-			
 			GET DIAGNOSTICS _registros_actualizados = ROW_COUNT;	
 			IF _registros_actualizados != 1	THEN   
 				_ret := false;
