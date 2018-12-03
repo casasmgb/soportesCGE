@@ -34,6 +34,7 @@ RETURNS SETOF objinformacion_afectada
 AS $function$
 DECLARE 
 	my_var INTEGER;
+	total INTEGER;
 	_mensaje CHARACTER VARYING(9000);
 	_data_historico JSON;
 	_err_Mensaje_detalle CHARACTER VARYING(8000);
@@ -47,34 +48,44 @@ BEGIN
 			0              -- err_codigo INTEGER
 	INTO _obj_informacion_afectada;
 	my_var:=0;
+	total:=0;
 	
 	--4.-	CE/LP-T376-817/2018
 	--		2394260
 	select seguimiento_capacitacion.changeCI('CE/LP-T376-817/2018', '2394260-LP','URQUIDI','CARDENAS', '2394260', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--6.-	CE/LP-T392-862/2018
 	--		2448749
-	select * from  seguimiento_capacitacion.changeCI('CE/LP-T392-862/2018', '2448749-LP','SALINAS','SARAVIA', '2448749', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-T392-862/2018', '2448749-LP','SALINAS','SARAVIA', '2448749', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--8.-	CE/LP-T372-813/2018
 	--		6988817
 	select seguimiento_capacitacion.changeCI('CE/LP-T372-813/2018', '6988817-LP','ROMERO','CALLE', '6988817', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--9.-	CE/LP-T354-749/2018
 	--		6987176
 	select seguimiento_capacitacion.changeCI('CE/LP-T354-749/2018', '6987176-LP','RAMOS','CORANI', '6987176', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--11.-	CE/LP-A65-830/2018
 	--		3390285
 	select seguimiento_capacitacion.changeCI('CE/LP-A65-830/2018', '3390285-LP','PRADO','SARDINAS', '3390285', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--12.-	CE/LP-T392-862/2018
 	--		4849884
 	select seguimiento_capacitacion.changeCI('CE/LP-T392-862/2018', '48498844','PARRA','GUTIERREZ', '4849884', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--13.-	CE/LP-T321-584/2018
 	--		3496837
 	select seguimiento_capacitacion.changeCI('CE/LP-T321-584/2018', '3496637','MORALES','REYES', '3496837', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--14.-	CE/SC-T20-562/2017
 	--		8074859
 	select seguimiento_capacitacion.changeCI('CE/SC-T20-562/2017', '8074859-SC','MONTAÑO','CALZADILLA', '8074859', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--16.-	CE/LP-T378-819/2018
 	--		9127475
 	select seguimiento_capacitacion.changeCI('CE/LP-T378-819/2018', '9127475-LP','MOLLO','CHAMBILLA', '9127475', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--17.-	CE/OR-T13-877/2018
 	--		7315747
 	SELECT row_to_json (row1) INTO _data_historico
@@ -84,7 +95,7 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_participantes
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de nombres');
+	VALUES(_data_historico,'seguimiento_capacitacion.personas', now(), 'Gabriel Casas M.', 'Actualizacion de nombres');
 	 
 	UPDATE seguimiento_capacitacion.personas p
 	SET
@@ -94,15 +105,19 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ;
+	total:=total+1;
 	--17.-	CE/LP-T373-814/2018
 	--		8302036
 	select seguimiento_capacitacion.changeCI('CE/LP-T373-814/2018', '8302036-LP','MALDONADO','HINOJOSA', '8302036', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--18.-	CE/LP-A76-863/2018
 	--		4751133
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '4751133-LP','LUNA','QUISPE', '4751133', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--20.-	CE/LP-A76-863/2018
 	--		6003928
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '6003928-LP','HUANCA','TICONA', '6003928', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--21.-	CE/LP-E09-827/2018
 	--		4446619
 	SELECT row_to_json (row1) INTO _data_historico
@@ -112,7 +127,7 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_participantes
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de codigo de departamento');
+	VALUES(_data_historico,'seguimiento_capacitacion.personas', now(), 'Gabriel Casas M.', 'Actualizacion de codigo de departamento');
 	
 	UPDATE seguimiento_capacitacion.personas p
 	SET
@@ -122,50 +137,62 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ;
+	total:=total+1;
 	--22  - 34.-	CE/LP-T10-357/2017
 	--		10917527
 	select seguimiento_capacitacion.changeCI('CE/LP-T10-357/2017', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--35.-	CE/LP-T221-430/2018
 	--		3439746
 	select seguimiento_capacitacion.changeCI('CE/LP-T221-430/2018', '3439746-LP','FARFAN','RAMOS', '3439746', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--37.-	CE/LP-A76-863/2018
 	--		6748152
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '6748152-LP','ESCOBAR','CABRERA', '6748152', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--37.-	CE/LP-A76-863/2018
 	--		4928721
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '4928721-LP','ESCOBAR','ZALLES', '4928721', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--38.-	CE/LP-A76-863/2018
 	--		8318732
 	select seguimiento_capacitacion.changeCI('CE/LP-A76-863/2018', '8318732-LP','CONTRERAS','MAMANI', '8318732', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--39.-	CE/PN-A06-679/2018
 	--		3659709
 	select seguimiento_capacitacion.changeCI('CE/PN-A06-679/2018', '3659709-CH','CHOQUE','TEJERINA', '3659709', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--40.-	CE/LP-A21-313/2018
 	--		4921547
 	select seguimiento_capacitacion.changeCI('CE/LP-A21-313/2018', '4921547-LP','CHOQUE','ALAVE', '4921547', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--41.-	MU/LP-T32-798/2018
 	--		6784406
 	select seguimiento_capacitacion.changeCI('MU/LP-T32-798/2018', '6784406-LP','CANAVIRI','FLORES', '6784406', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--42.-	MU/LP-A04-623/2018
 	--		8286453
 	select seguimiento_capacitacion.changeCI('MU/LP-A04-623/2018', '8286453-LP','ASTURILLO','FLORES', '8286453', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--44.-	CE/CB-T34-778/2018
 	--		7956915
 	select seguimiento_capacitacion.changeCI('CE/CB-T34-778/2018', '7956915-CB','ADRIAN','CONDORI', '7956915', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--45.-	CE/LP-T225-434/2018
 	--		6612586
 	select seguimiento_capacitacion.changeCI('CE/LP-T225-434/2018', '6612586-PT','ACEBEY','ARISMENDI', '6612586', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--46.-	CE/LP-A03-154/2018
 	--		3334282
 	select seguimiento_capacitacion.changeCI('CE/LP-A03-154/2018', '3334282-LP','LUNA','ALANOCA', '3334282', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--47.-	CE/LP-T221-430/2018
 	--		3439746
-	select seguimiento_capacitacion.changeCI('CE/LP-T221-430/2018', '3439746-LP','FARFAN','RAMOS', '3439746', 1) into _obj_informacion_afectada;
+	-- select seguimiento_capacitacion.changeCI('CE/LP-T221-430/2018', '3439746-LP','FARFAN','RAMOS', '3439746', 1) into _obj_informacion_afectada;
 	--48.-	CE/LP-T366-799/2018
 	--		4888820
 	select seguimiento_capacitacion.changeCI('CE/LP-T366-799/2018', '488820','ROJAS','', '4888820', 1) into _obj_informacion_afectada;
-	
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	SELECT row_to_json (row1) INTO _data_historico
 		FROM (
 		    SELECT * FROM seguimiento_capacitacion.personas p WHERE p.per_docidentidad='4888820'
@@ -173,7 +200,7 @@ BEGIN
 	
 	INSERT INTO seguimiento_capacitacion.historico_participantes
 		(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Actualizacion de apellidos paterno y materno');
+	VALUES(_data_historico,'seguimiento_capacitacion.personas', now(), 'Gabriel Casas M.', 'Actualizacion de apellidos paterno y materno');
 	
 	UPDATE seguimiento_capacitacion.personas p
 	set
@@ -185,13 +212,13 @@ BEGIN
 	IF my_var != 2 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ;
-	
+	total:=total+1;
 	-- Retornamos los valores 
 	_obj_informacion_afectada.inf_codigo		:= _mensaje;
 	_obj_informacion_afectada.inf_complemento	:= 'SCRIPT FINALIZO';
 	_obj_informacion_afectada.err_Existente		:= 0;
 	_obj_informacion_afectada.err_Mensaje		:= _obj_informacion_afectada;
-	_obj_informacion_afectada.err_codigo		:= 0;
+	_obj_informacion_afectada.err_codigo		:= total;
 	RETURN NEXT _obj_informacion_afectada;
 	
 EXCEPTION

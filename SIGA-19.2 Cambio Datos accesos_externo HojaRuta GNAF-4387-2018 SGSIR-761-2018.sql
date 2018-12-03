@@ -21,7 +21,8 @@ $BODY$
 DECLARE
 	my_var INTEGER;
 	_data_historico JSON;
-_obj_informacion_afectada public.objinformacion_afectada%rowtype;
+	_obj_informacion_afectada public.objinformacion_afectada%rowtype;
+	total INTEGER;
 BEGIN
 	-- Tipo de dato de retorno
 	SELECT	'',            -- inf_codigo VARCHAR(1000),
@@ -31,7 +32,7 @@ BEGIN
 			0              -- err_codigo INTEGER
 	INTO _obj_informacion_afectada;
 	my_var:=0;
-	
+	total:=0;
 	--1.-	CE/LP-T273-504/2018
 	--		6062848
 	SELECT row_to_json (row1) INTO _data_historico
@@ -41,7 +42,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'actualizar nombre');
+	VALUES(_data_historico,'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'actualizar nombre');
 	 
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -53,9 +54,11 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF; 
+	total:=total+1;
 	--2.-	CE/LP-T33-075/2017  --75
 	--		6724235
 	select acceso_externo.changeCI('75', '6724235-LP','VARGAS','PACO', '6724235', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--3.-	CE/LP-T202-399/2018
 	--		3290423
 	SELECT row_to_json (row1) INTO _data_historico
@@ -65,7 +68,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno y materno');
+	VALUES(_data_historico,'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno y materno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -78,6 +81,7 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF; 
+	total:=total+1;
 	--5.-	MU/SC-T41-792/2018
 	--		7737021
 	SELECT row_to_json (row1) INTO _data_historico
@@ -87,7 +91,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellido materno');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellido materno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -99,6 +103,7 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF; 
+	total:=total+1;
 	--7.-	CE/LP-T388-858/2018
 	--		5963141
 	SELECT row_to_json (row1) INTO _data_historico
@@ -108,7 +113,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar nombres');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -120,9 +125,11 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
+	total:=total+1;
 	--10.-	MU/LP-T32-798/2018  --1507
 	--		6125423
 	select acceso_externo.changeCI('1507', '6125423-LP','QUISPE','FRANCO', '6125423', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--15.-	MU/LP-A10-851/2018
 	--		4799716
 	SELECT row_to_json (row1) INTO _data_historico
@@ -132,7 +139,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -144,6 +151,7 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
+	total:=total+1;
 	--17.-	CE/OR-T13-877/2018
 	--		7315747
 	SELECT row_to_json (row1) INTO _data_historico
@@ -153,7 +161,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar nombres');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -165,6 +173,7 @@ BEGIN
 	IF my_var != 1 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
+	total:=total+1;
 	--19.-	PO/LP-A17-425/2017
 	--		7041289
 	SELECT row_to_json (row1) INTO _data_historico
@@ -174,7 +183,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'acturalizar apellido paterno');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellido paterno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -185,6 +194,7 @@ BEGIN
 	IF my_var != 2 THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF;
+	total:=total+1;
 	--21.-	CE/LP-E09-827/2018
 	--		4446619
 	SELECT row_to_json (row1) INTO _data_historico
@@ -194,7 +204,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'Cambio codigo de expedicion');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'Cambio codigo de expedicion');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -205,41 +215,51 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
-
+	total:=total+1;
 	--24.-	CE/LP-T10-616/2017   --617 
 	--		10917527
 	select acceso_externo.changeCI('617', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--25.-	CE/LP-T10-617/2017  --618
 	--		10917527
 	select acceso_externo.changeCI('618', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--26.-	CE/LP-T10-618/2017  --619
 	--		10917527
 	select acceso_externo.changeCI('619', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--27.-	CE/LP-T10-620/2017  --621
 	--		10917527
 	select acceso_externo.changeCI('621', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--28.-	CE/LP-T11-087/2018  --787
 	--		10917527
 	select acceso_externo.changeCI('787', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--29.-	CE/LP-T12-088/2018  --788
 	--		10917527
 	select acceso_externo.changeCI('788', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--30.-	CE/LP-T13-089/2018  --789
 	--		10917527
 	select acceso_externo.changeCI('789', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--31.-	CE/LP-T14-090/2018  --797
 	--		10917527
 	select acceso_externo.changeCI('797', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--32.-	CE/LP-T15-091/2018  --798
 	--		10917527
 	select acceso_externo.changeCI('798', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--33.-	CE/LP-T32-074/2017  --74
 	--		10917527
 	select acceso_externo.changeCI('74', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--34.-	CE/LP-T93-231/2017  --231
 	--		10917527
 	select acceso_externo.changeCI('231', '10917527-LP','FERNANDEZ','CHAMBI', '10917527', 1) into _obj_informacion_afectada;
-	
+	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--43.-	CE/LP-T379-820/2018
 	--		4308607
 	SELECT row_to_json (row1) INTO _data_historico
@@ -249,7 +269,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'quitar apellido de esposo');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'quitar apellido de esposo');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	SET
@@ -260,6 +280,7 @@ BEGIN
 	IF my_var != 1 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
+	total:=total+1;
 	--48.-	CE/LP-T366-799/2018
 	--		4888820
 	-- 20181030_XRBRAE
@@ -271,7 +292,7 @@ BEGIN
 	
 	INSERT INTO acceso_externo.historico_participantes
 	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
-	VALUES(_data_historico, now(), 'Gabriel Casas M.', 'cambio de apellidos paterno y materno ');
+	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'cambio de apellidos paterno y materno ');
 	
 	UPDATE acceso_externo.persona_preinscripcion
    	set
@@ -283,6 +304,8 @@ BEGIN
 	IF my_var != 2 	THEN  
 		RAISE EXCEPTION transaction_rollback;
 	END IF ; 
+	total:=total+1;
+	raise notice 'Filas Afectadas: % ', total;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE SECURITY DEFINER
