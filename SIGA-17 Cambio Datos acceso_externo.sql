@@ -55,7 +55,7 @@ BEGIN
 	RAISE NOTICE 'perpre_codigo: % ', _perpre_codigo;
 	
 	_new_pass := (select public.fn_encriptar_cadena(_docidentidad_new));
-	RAISE NOTICE 'cambiando contraseña por: % ', _new_pass;
+	RAISE NOTICE 'cambiando contraseï¿½a por: % ', _new_pass;
 	
 	-- traza 
 	SELECT row_to_json (row1) INTO _data_historico

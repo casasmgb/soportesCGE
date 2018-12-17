@@ -41,7 +41,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico,'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'actualizar nombre');
 	 
 	UPDATE acceso_externo.persona_preinscripcion
@@ -67,7 +67,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico,'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno y materno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -90,7 +90,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellido materno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -112,7 +112,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -138,7 +138,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellidos paterno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -160,7 +160,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar nombres');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -182,7 +182,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'acturalizar apellido paterno');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -203,7 +203,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'Cambio codigo de expedicion');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -268,7 +268,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'quitar apellido de esposo');
 	
 	UPDATE acceso_externo.persona_preinscripcion
@@ -291,7 +291,7 @@ BEGIN
 	) row1;
 	
 	INSERT INTO acceso_externo.historico_participantes
-	(traza, fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
+	(traza, tabla,  fecha_ejecucion, funcionario_sgsir_responsable, comentario_accion_realizada)
 	VALUES(_data_historico, 'acceso_externo.persona_preinscripcion', now(), 'Gabriel Casas M.', 'cambio de apellidos paterno y materno ');
 	
 	UPDATE acceso_externo.persona_preinscripcion
