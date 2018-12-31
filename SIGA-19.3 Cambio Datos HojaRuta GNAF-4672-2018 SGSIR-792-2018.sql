@@ -123,7 +123,7 @@ BEGIN
 	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--20.-	CE/LP-A64-807/2018
 	--    	2129566
-	select seguimiento_capacitacion.changeCI('CE/LP-A64-807/2018', '2129566-LP','SUSAÑO','BALTAZAR', '2129566', 1) into _obj_informacion_afectada;
+	select seguimiento_capacitacion.changeCI('CE/LP-A64-807/2018', '2129566-LP','SUSAï¿½O','BALTAZAR', '2129566', 1) into _obj_informacion_afectada;
 	IF _obj_informacion_afectada.err_Existente != 0 THEN  RAISE EXCEPTION transaction_rollback; ELSE total:=total+1; end if;
 	--21.-	CE/LP-A70-835/2018
 	--    	6948835
